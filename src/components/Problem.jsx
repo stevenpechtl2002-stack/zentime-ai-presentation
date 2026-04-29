@@ -77,9 +77,9 @@ function NumberInput({ label, value, onChange, prefix, suffix, min = 1, max = 99
             min={min} max={max} value={value}
             onChange={e => { const v = parseInt(e.target.value); if (!isNaN(v) && v >= min && v <= max) onChange(v) }}
             style={{
-              width: prefix ? '130px' : '100px',
-              paddingLeft: prefix ? '28px' : '12px',
-              paddingRight: suffix ? '28px' : '12px',
+              width: '160px',
+              paddingLeft: prefix ? '32px' : '16px',
+              paddingRight: suffix ? '40px' : '16px',
               paddingTop: '0.5rem', paddingBottom: '0.5rem',
               textAlign: 'center',
               fontFamily: 'Playfair Display, serif',
