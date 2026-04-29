@@ -18,7 +18,6 @@ const PLANS = {
 }
 
 const DAYS_PER_MONTH = 22
-const TAX_RATE = 0.30
 
 function useCountUp(target, key) {
   const [count, setCount] = useState(0)
@@ -213,13 +212,11 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
   const lostCustomers  = Math.round(totalMissed * (conversionPct / 100))
   const revenueLoss    = lostCustomers * avgValue
   const zenCost        = plan.total
-  const taxSaving      = Math.round(zenCost * TAX_RATE)
-  const netCost        = zenCost - taxSaving
-  const netGain        = revenueLoss - netCost
+  const netGain        = revenueLoss - zenCost
 
   useEffect(() => {
-    onCalcUpdate?.({ minTerm, revenueLoss, zenCost, taxSaving, netCost, netGain, lostCustomers, totalMissed })
-  }, [minTerm, revenueLoss, zenCost, taxSaving, netCost, netGain])
+    onCalcUpdate?.({ minTerm, revenueLoss, zenCost, netGain, lostCustomers, totalMissed })
+  }, [minTerm, revenueLoss, zenCost, netGain])
 
   const animKey = `${missedPerDay}-${avgValue}-${conversionPct}-${minTerm}`
 
@@ -342,17 +339,8 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
               accent
             />
             <ResultCard
-              icon="🧾"
-              label="Finanzamt beteiligt sich (Betriebsausgabe · ~30% Steuersatz)"
-              value={taxSaving}
-              suffix="€"
-              animKey={`t-${animKey}`}
-              accent
-              sub="Weniger Steuern = günstigere Nettokosten"
-            />
-            <ResultCard
               icon="📈"
-              label={`Ihr Nettogewinn nach Steuer in ${minTerm} Monaten`}
+              label={`Ihr Gewinn mit ZenTime AI in ${minTerm} Monaten`}
               value={netGain}
               suffix="€"
               animKey={`g-${animKey}`}
@@ -366,7 +354,7 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
             fontFamily: 'Inter, sans-serif', fontSize: '0.68rem',
             color: 'rgba(245,245,245,0.18)', letterSpacing: '0.05em',
           }}>
-            Basis: {DAYS_PER_MONTH} Arbeitstage/Monat · {conversionPct}% Konversionsrate · ZenTime AI 100% Betriebsausgabe · Steuerersparnis bei ~30% Steuersatz · Setup {plan.setup.toLocaleString('de-DE')}€ + {plan.monthly}€/Monat
+            Basis: {DAYS_PER_MONTH} Arbeitstage/Monat · {conversionPct}% Konversionsrate · Setup {plan.setup.toLocaleString('de-DE')}€ + {plan.monthly}€/Monat
           </p>
         </div>
       </div>

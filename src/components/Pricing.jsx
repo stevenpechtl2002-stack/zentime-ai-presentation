@@ -313,9 +313,9 @@ export default function Pricing({ minTerm = 6, calcResults = null }) {
                 <span style={{ color: '#e53e3e' }}>
                   {calcResults.revenueLoss.toLocaleString('de-DE')}€
                 </span>
-                {' '}· ZenTime AI nach Steuer:{' '}
+                {' '}· ZenTime AI Investition:{' '}
                 <span style={{ color: '#c9a84c' }}>
-                  {calcResults.netCost.toLocaleString('de-DE')}€
+                  {calcResults.zenCost.toLocaleString('de-DE')}€
                 </span>
               </div>
             </div>
