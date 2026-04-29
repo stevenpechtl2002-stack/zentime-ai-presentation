@@ -15,7 +15,7 @@ const PATH_A = [
 
 const PATH_B = [
   { icon: '📋', label: 'Infos zum Personalisieren', desc: 'Name, Stimme, Sprache, Branchenspezifik, typische Anfragen' },
-  { icon: '💳', label: 'Zahlung via SEPA', desc: 'Sichere Einmalzahlung Setup + erstes Monat Abo' },
+  { icon: '💳', label: 'Zahlung', desc: 'Einmalzahlung Setup + erstes Monat Abo' },
   { icon: '⚙️', label: 'Personalisierung startet', desc: 'Bei Zahlungseingang beginnen wir sofort mit der Einrichtung' },
   { icon: '🚀', label: 'Live in 24 Stunden', desc: 'Ihr KI Assistent ist aktiv — Abo läuft ab jetzt' },
 ]
