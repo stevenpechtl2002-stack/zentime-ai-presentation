@@ -36,10 +36,10 @@ export default function App() {
         <HowItWorks />
         <Benefits />
         <Compare />
+        <CallFlow />
         <Industries />
         <Pricing minTerm={minTerm} calcResults={calcResults} />
         <Testimonials />
-        <CallFlow />
         <Opinion />
         <CTA />
       </main>
