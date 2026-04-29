@@ -79,8 +79,14 @@ function NumberInput({ label, value, onChange, prefix, suffix, min = 1, max = 99
           )}
           <input
             type="number"
-            min={min} max={max} value={value}
-            onChange={e => { const v = parseInt(e.target.value); if (!isNaN(v) && v >= min && v <= max) onChange(v) }}
+            min={0} max={max} value={value === 0 ? '' : value}
+            placeholder="0"
+            onChange={e => {
+              if (e.target.value === '') { onChange(0); return }
+              const v = parseInt(e.target.value)
+              if (!isNaN(v)) onChange(Math.min(max, Math.max(0, v)))
+            }}
+            onFocus={e => e.target.select()}
             style={{
               width: '160px',
               paddingLeft: prefix ? '32px' : '16px',
@@ -162,9 +168,9 @@ export default function Problem() {
   const sectionRef = useRef(null)
   const pinRef = useRef(null)
   const [triggered, setTriggered] = useState(false)
-  const [missedPerDay, setMissedPerDay] = useState(10)
-  const [avgValue, setAvgValue] = useState(200)
-  const [conversionPct, setConversionPct] = useState(60)
+  const [missedPerDay, setMissedPerDay] = useState(0)
+  const [avgValue, setAvgValue] = useState(0)
+  const [conversionPct, setConversionPct] = useState(0)
   const [period, setPeriod] = useState('month') // 'month' | 'year'
 
   useEffect(() => {
