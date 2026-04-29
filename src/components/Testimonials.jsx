@@ -8,21 +8,21 @@ gsap.registerPlugin(ScrollTrigger)
 const reviews = [
   {
     stars: 5,
-    quote: 'Seit ZenTime AI haben wir keinen einzigen Anruf mehr verpasst. Unsere Kunden sind begeistert und wir können uns endlich voll auf die Arbeit konzentrieren.',
+    quote: 'Seit ZenTime AI verpassen wir keinen Anruf mehr. Wir sind oft unter dem Auto — jetzt kümmert sich die KI drum. Kunden sind begeistert.',
     name: 'Thomas M.',
     role: 'Kfz-Werkstatt, München',
   },
   {
     stars: 5,
-    quote: 'Die Stimme klingt echter als unsere alte Rezeptionistin! Patienten merken oft gar nicht, dass sie mit einer KI sprechen. Absolute Empfehlung.',
-    name: 'Dr. Sarah K.',
-    role: 'Zahnarztpraxis, Hamburg',
+    quote: 'Wir sind den ganzen Tag am Kunden — da kann man nicht ans Telefon. ZenTime AI bucht die Termine selbstständig. Umsatz gestiegen, Stress gesunken.',
+    name: 'Sarah K.',
+    role: 'Beauty Salon, Hamburg',
   },
   {
     stars: 5,
-    quote: 'ROI bereits im ersten Monat erreicht. Allein durch die Termine, die früher ins Leere liefen, haben wir drei neue Objekte akquiriert.',
+    quote: 'ROI bereits im ersten Monat. Früher liefen Anrufe ins Leere wenn wir im Laden waren. Jetzt läuft alles automatisch — auch nachts.',
     name: 'Marco R.',
-    role: 'Immobilienmakler, Berlin',
+    role: 'Restaurant, Berlin',
   },
 ]
 

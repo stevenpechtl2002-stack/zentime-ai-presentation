@@ -2,13 +2,15 @@ import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
 const industries = [
-  { icon: '🚗', title: 'Kfz-Werkstätten', desc: 'Terminbuchung & Fahrzeugannahme automatisieren' },
-  { icon: '🦷', title: 'Zahnarztpraxen', desc: 'Patientenannahme & Erinnerungen rund um die Uhr' },
-  { icon: '🏠', title: 'Immobilienmakler', desc: 'Interessenten qualifizieren & Besichtigungen buchen' },
+  { icon: '🚗', title: 'Kfz-Werkstätten', desc: 'Terminbuchung & Fahrzeugannahme rund um die Uhr' },
+  { icon: '🔧', title: 'Autowäschen & Tuning', desc: 'Termine & Anfragen automatisch entgegennehmen' },
   { icon: '💅', title: 'Beauty Salons', desc: 'Buchungen verwalten ohne Unterbrechung beim Kunden' },
-  { icon: '🐾', title: 'Tierarztpraxen', desc: 'Notfallaufnahme & Terminvergabe automatisch' },
+  { icon: '💇', title: 'Friseure & Barbershops', desc: 'Kein verpasster Anruf mehr während der Arbeit am Kunden' },
+  { icon: '💆', title: 'Massage & Wellness', desc: 'Termine buchen & Rückfragen automatisch beantworten' },
   { icon: '🏋️', title: 'Fitnessstudios', desc: 'Probetrainings buchen & Mitglieder betreuen' },
-  { icon: '🍕', title: 'Restaurants', desc: 'Reservierungen entgegennehmen & Wartelisten managen' },
+  { icon: '🍕', title: 'Restaurants', desc: 'Reservierungen & Lieferanfragen rund um die Uhr' },
+  { icon: '🍺', title: 'Bars & Clubs', desc: 'Tischreservierungen & Event-Anfragen automatisch' },
+  { icon: '🏨', title: 'Hotels & Pensionen', desc: 'Buchungsanfragen & Check-in-Infos automatisieren' },
   { icon: '⚡', title: 'Handwerksbetriebe', desc: 'Kostenvoranfragen annehmen & Termine koordinieren' },
 ]
 
