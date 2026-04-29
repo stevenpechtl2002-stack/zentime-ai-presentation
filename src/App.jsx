@@ -14,6 +14,7 @@ import Pricing from './components/Pricing'
 import Testimonials from './components/Testimonials'
 import CallFlow from './components/CallFlow'
 import Opinion from './components/Opinion'
+import Demo from './components/Demo'
 import CTA from './components/CTA'
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
         <Benefits />
         <Compare />
         <Industries />
+        <Demo />
         <Pricing minTerm={minTerm} calcResults={calcResults} />
         <Opinion />
         <CallFlow />
