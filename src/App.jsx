@@ -1,10 +1,7 @@
-import { useState } from 'react'
 import './index.css'
-import { INDUSTRIES } from './data/industries'
 import Cursor from './components/Cursor'
 import Navbar from './components/Navbar'
 import ProgressBar from './components/ProgressBar'
-import IndustrySelector from './components/IndustrySelector'
 import Hero from './components/Hero'
 import Problem from './components/Problem'
 import Solution from './components/Solution'
@@ -17,8 +14,6 @@ import Testimonials from './components/Testimonials'
 import CTA from './components/CTA'
 
 export default function App() {
-  const [selectedIndustry, setSelectedIndustry] = useState(INDUSTRIES[0])
-
   return (
     <>
       <Cursor />
@@ -26,8 +21,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <IndustrySelector selected={selectedIndustry} onChange={setSelectedIndustry} />
-        <Problem industry={selectedIndustry} />
+        <Problem />
         <Solution />
         <HowItWorks />
         <Benefits />
