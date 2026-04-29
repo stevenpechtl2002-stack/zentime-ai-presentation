@@ -5,7 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const CONVERSION = 0.4   // 40% der verpassten Anrufer wären Kunden geworden
+const CONVERSION_HINTS = [
+  { label: 'Restaurant / Beauty / Friseur', value: 75, note: 'Fast alle Anrufe sind Buchungsanfragen' },
+  { label: 'Kfz / Handwerk', value: 40, note: 'Mix aus Anfragen, Preisvergleichen & Bestandskunden' },
+  { label: 'Hotel / Fitness', value: 55, note: 'Überwiegend konkrete Buchungsabsicht' },
+  { label: 'Bar / Club', value: 60, note: 'Meist Reservierungen & Event-Anfragen' },
+]
 const DAYS_MONTH = 22
 const DAYS_YEAR = 264
 const ZENTIME_MONTHLY = 500
@@ -159,6 +164,7 @@ export default function Problem() {
   const [triggered, setTriggered] = useState(false)
   const [missedPerDay, setMissedPerDay] = useState(10)
   const [avgValue, setAvgValue] = useState(200)
+  const [conversionPct, setConversionPct] = useState(60)
   const [period, setPeriod] = useState('month') // 'month' | 'year'
 
   useEffect(() => {
@@ -179,11 +185,11 @@ export default function Problem() {
   const zenCost = period === 'month' ? ZENTIME_MONTHLY : ZENTIME_MONTHLY * 12
 
   const totalMissed = missedPerDay * days
-  const lostCustomers = Math.round(totalMissed * CONVERSION)
+  const lostCustomers = Math.round(totalMissed * (conversionPct / 100))
   const revenueLoss = lostCustomers * avgValue
   const netGain = revenueLoss - zenCost
 
-  const animKey = `${missedPerDay}-${avgValue}-${period}`
+  const animKey = `${missedPerDay}-${avgValue}-${conversionPct}-${period}`
   const periodLabel = period === 'month' ? 'pro Monat' : 'pro Jahr'
 
   return (
@@ -214,7 +220,7 @@ export default function Problem() {
         <div
           style={{
             display: 'flex', flexWrap: 'wrap', gap: '2.5rem',
-            justifyContent: 'center', marginBottom: '2rem',
+            justifyContent: 'center', marginBottom: '1.5rem',
             opacity: triggered ? 1 : 0,
             transition: 'opacity 0.6s ease',
           }}
@@ -232,6 +238,48 @@ export default function Problem() {
             min={10} max={9999} step={10}
             suffix="€"
           />
+          <NumberInput
+            label="Konversionsrate"
+            value={conversionPct}
+            onChange={setConversionPct}
+            min={1} max={100} step={5}
+            suffix="%"
+          />
+        </div>
+
+        {/* Conversion rate hints */}
+        <div
+          style={{
+            display: 'flex', flexWrap: 'wrap', gap: '0.5rem',
+            justifyContent: 'center', marginBottom: '1.8rem',
+            opacity: triggered ? 1 : 0,
+            transition: 'opacity 0.6s ease 0.1s',
+            maxWidth: '700px',
+          }}
+        >
+          {CONVERSION_HINTS.map((hint) => (
+            <button
+              key={hint.value}
+              onClick={() => setConversionPct(hint.value)}
+              title={hint.note}
+              style={{
+                padding: '0.3rem 0.9rem',
+                borderRadius: '999px',
+                border: `1px solid ${conversionPct === hint.value ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.12)'}`,
+                background: conversionPct === hint.value ? 'rgba(201,168,76,0.12)' : 'transparent',
+                color: conversionPct === hint.value ? '#c9a84c' : 'rgba(245,245,245,0.35)',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '0.72rem',
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                whiteSpace: 'nowrap',
+              }}
+              onMouseEnter={e => { if (conversionPct !== hint.value) e.currentTarget.style.color = 'rgba(245,245,245,0.65)' }}
+              onMouseLeave={e => { if (conversionPct !== hint.value) e.currentTarget.style.color = 'rgba(245,245,245,0.35)' }}
+            >
+              {hint.label} → {hint.value}%
+            </button>
+          ))}
         </div>
 
         {/* Period toggle */}
@@ -292,7 +340,7 @@ export default function Problem() {
             />
             <ResultCard
               icon="👤"
-              label={`Verlorene Kunden ${periodLabel} (bei 40% Konversionsrate)`}
+              label={`Verlorene Kunden ${periodLabel} (bei ${conversionPct}% Konversionsrate)`}
               value={lostCustomers}
               animKey={`customers-${animKey}`}
               accent={false}
@@ -347,7 +395,7 @@ export default function Problem() {
             color: 'rgba(245,245,245,0.2)',
             letterSpacing: '0.05em',
           }}>
-            Basis: {days} Arbeitstage · 40% Konversionsrate verpasster Anrufe · ZenTime AI 500€/Monat
+            Basis: {days} Arbeitstage · {conversionPct}% Konversionsrate verpasster Anrufe · ZenTime AI 500€/Monat
           </p>
         </div>
       </div>
