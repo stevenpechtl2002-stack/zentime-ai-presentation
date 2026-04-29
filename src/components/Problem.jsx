@@ -206,13 +206,26 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
     return () => ctx.revert()
   }, [])
 
-  const plan      = PLANS[minTerm]
-  const days      = DAYS_PER_MONTH * minTerm
+  const plan           = PLANS[minTerm]
+  const days           = DAYS_PER_MONTH * minTerm
   const totalMissed    = missedPerDay * days
   const lostCustomers  = Math.round(totalMissed * (conversionPct / 100))
   const revenueLoss    = lostCustomers * avgValue
   const zenCost        = plan.total
   const netGain        = revenueLoss - zenCost
+
+  // Break-even: wie viele Tage bis Setup bezahlt ist
+  const revenuePerDay  = missedPerDay * (conversionPct / 100) * avgValue
+  const breakEvenDays  = revenuePerDay > 0 ? Math.ceil(plan.setup / revenuePerDay) : null
+
+  const formatBreakEven = (d) => {
+    if (!d) return null
+    if (d <= 1)  return { value: 1,                unit: 'Tag',    sub: 'Setup sofort amortisiert' }
+    if (d < 30)  return { value: d,                unit: 'Tage',   sub: `Setup in ${d} Tagen bezahlt` }
+    if (d < 60)  return { value: Math.ceil(d / 7), unit: 'Wochen', sub: `Setup in ${Math.ceil(d/7)} Wochen bezahlt` }
+    return       { value: Math.ceil(d / 22),       unit: 'Monate', sub: `Setup in ${Math.ceil(d/22)} Monaten bezahlt` }
+  }
+  const breakEven = formatBreakEven(breakEvenDays)
 
   useEffect(() => {
     onCalcUpdate?.({ minTerm, revenueLoss, zenCost, netGain, lostCustomers, totalMissed })
@@ -349,8 +362,48 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
             />
           </div>
 
+          {/* Break-even banner */}
+          {breakEven && (
+            <div style={{
+              marginTop: '0.75rem',
+              padding: '1rem 1.5rem',
+              background: 'linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.03))',
+              border: '1px solid rgba(34,197,94,0.2)',
+              borderRadius: '12px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              gap: '1rem', flexWrap: 'wrap',
+            }}>
+              <span style={{ fontSize: '1.3rem' }}>⚡</span>
+              <div style={{ textAlign: 'center' }}>
+                <span style={{
+                  fontFamily: 'Inter, sans-serif', fontSize: '0.72rem',
+                  color: 'rgba(245,245,245,0.4)', letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                }}>
+                  Setup von {plan.setup.toLocaleString('de-DE')}€ bezahlt sich nach
+                </span>
+                <span style={{
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: 'clamp(1.4rem, 2.5vw, 2rem)',
+                  fontWeight: 900, color: '#22c55e',
+                  textShadow: '0 0 20px rgba(34,197,94,0.4)',
+                  marginLeft: '0.5rem', marginRight: '0.3rem',
+                }}>
+                  {breakEven.value}
+                </span>
+                <span style={{
+                  fontFamily: 'Inter, sans-serif', fontSize: '1rem',
+                  color: 'rgba(34,197,94,0.8)', fontWeight: 600,
+                }}>
+                  {breakEven.unit}
+                </span>
+              </div>
+              <span style={{ fontSize: '1.3rem' }}>⚡</span>
+            </div>
+          )}
+
           <p style={{
-            textAlign: 'center', marginTop: '0.8rem',
+            textAlign: 'center', marginTop: '0.6rem',
             fontFamily: 'Inter, sans-serif', fontSize: '0.68rem',
             color: 'rgba(245,245,245,0.18)', letterSpacing: '0.05em',
           }}>
