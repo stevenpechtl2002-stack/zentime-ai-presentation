@@ -343,12 +343,12 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
             />
             <ResultCard
               icon="🧾"
-              label="Steuerersparnis (100% Betriebsausgabe · ~30% Steuersatz)"
+              label="Finanzamt beteiligt sich (Betriebsausgabe · ~30% Steuersatz)"
               value={taxSaving}
               suffix="€"
               animKey={`t-${animKey}`}
               accent
-              sub="Volle Absetzbarkeit als Betriebsausgabe"
+              sub="Weniger Steuern = günstigere Nettokosten"
             />
             <ResultCard
               icon="📈"
