@@ -184,7 +184,7 @@ function ResultCard({ icon, label, value, suffix = '', animKey, accent, large, s
   )
 }
 
-export default function Problem() {
+export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
   const sectionRef = useRef(null)
   const pinRef = useRef(null)
   const [triggered, setTriggered] = useState(false)
@@ -192,7 +192,6 @@ export default function Problem() {
   const [missedPerDay, setMissedPerDay] = useState(0)
   const [avgValue, setAvgValue]         = useState(0)
   const [conversionPct, setConversionPct] = useState(0)
-  const [minTerm, setMinTerm]           = useState(6)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -217,6 +216,10 @@ export default function Problem() {
   const taxSaving      = Math.round(zenCost * TAX_RATE)
   const netCost        = zenCost - taxSaving
   const netGain        = revenueLoss - netCost
+
+  useEffect(() => {
+    onCalcUpdate?.({ minTerm, revenueLoss, zenCost, taxSaving, netCost, netGain, lostCustomers, totalMissed })
+  }, [minTerm, revenueLoss, zenCost, taxSaving, netCost, netGain])
 
   const animKey = `${missedPerDay}-${avgValue}-${conversionPct}-${minTerm}`
 
@@ -295,7 +298,7 @@ export default function Problem() {
           <Toggle
             options={[[3, '3 Monate'], [6, '6 Monate'], [12, '12 Monate']]}
             value={minTerm}
-            onChange={setMinTerm}
+            onChange={onMinTermChange}
           />
           <span style={{
             fontFamily: 'Inter, sans-serif', fontSize: '0.68rem',

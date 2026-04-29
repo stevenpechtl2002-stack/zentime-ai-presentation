@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import './index.css'
 import Cursor from './components/Cursor'
 import Navbar from './components/Navbar'
@@ -14,6 +15,9 @@ import Testimonials from './components/Testimonials'
 import CTA from './components/CTA'
 
 export default function App() {
+  const [minTerm, setMinTerm] = useState(6)
+  const [calcResults, setCalcResults] = useState(null)
+
   return (
     <>
       <Cursor />
@@ -21,13 +25,17 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Problem />
+        <Problem
+          minTerm={minTerm}
+          onMinTermChange={setMinTerm}
+          onCalcUpdate={setCalcResults}
+        />
         <Solution />
         <HowItWorks />
         <Benefits />
         <Compare />
         <Industries />
-        <Pricing />
+        <Pricing minTerm={minTerm} calcResults={calcResults} />
         <Testimonials />
         <CTA />
       </main>

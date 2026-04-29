@@ -102,8 +102,9 @@ function SetupCard({ flipped }) {
   )
 }
 
-function PlanCard({ plan, delay, flipped }) {
+function PlanCard({ plan, delay, flipped, active }) {
   const fmt = (n) => n.toLocaleString('de-DE')
+  const isHighlighted = plan.highlight || active
 
   return (
     <div style={{ perspective: '1000px', flex: 1, minWidth: '220px' }}>
@@ -113,35 +114,36 @@ function PlanCard({ plan, delay, flipped }) {
         transition: `transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
         transform: flipped ? 'rotateY(0deg)' : 'rotateY(90deg)',
       }}>
-        {plan.badge && (
+        {(plan.badge || active) && (
           <div style={{
             position: 'absolute', top: '-14px', left: '50%', transform: 'translateX(-50%)',
             padding: '0.3rem 1.2rem',
-            background: plan.highlight
+            background: isHighlighted
               ? 'linear-gradient(90deg, #c9a84c, #e4c46e)'
               : 'rgba(201,168,76,0.12)',
-            border: plan.highlight ? 'none' : '1px solid rgba(201,168,76,0.3)',
+            border: isHighlighted ? 'none' : '1px solid rgba(201,168,76,0.3)',
             borderRadius: '999px',
             fontSize: '0.65rem', letterSpacing: '0.2em',
-            color: plan.highlight ? '#080808' : '#c9a84c',
+            color: isHighlighted ? '#080808' : '#c9a84c',
             fontWeight: 700, textTransform: 'uppercase',
             fontFamily: 'Inter, sans-serif',
             whiteSpace: 'nowrap', zIndex: 1,
           }}>
-            {plan.badge}
+            {active ? '← Ihre Auswahl' : plan.badge}
           </div>
         )}
 
         <div style={{
           padding: '2.5rem 1.8rem',
-          background: plan.highlight
-            ? 'linear-gradient(145deg, rgba(201,168,76,0.12) 0%, rgba(8,8,8,0.95) 100%)'
+          background: isHighlighted
+            ? 'linear-gradient(145deg, rgba(201,168,76,0.14) 0%, rgba(8,8,8,0.95) 100%)'
             : 'linear-gradient(145deg, rgba(201,168,76,0.04) 0%, rgba(8,8,8,0.9) 100%)',
-          border: `1px solid ${plan.highlight ? 'rgba(201,168,76,0.35)' : 'rgba(201,168,76,0.12)'}`,
+          border: `1px solid ${isHighlighted ? 'rgba(201,168,76,0.4)' : 'rgba(201,168,76,0.12)'}`,
           borderRadius: '24px',
-          boxShadow: plan.highlight
-            ? '0 0 40px rgba(201,168,76,0.1), 0 20px 60px rgba(0,0,0,0.5)'
+          boxShadow: isHighlighted
+            ? '0 0 50px rgba(201,168,76,0.15), 0 20px 60px rgba(0,0,0,0.5)'
             : '0 10px 40px rgba(0,0,0,0.3)',
+          transition: 'all 0.4s ease',
           textAlign: 'center',
         }}>
           {/* Duration label */}
@@ -224,7 +226,7 @@ function PlanCard({ plan, delay, flipped }) {
   )
 }
 
-export default function Pricing() {
+export default function Pricing({ minTerm = 6, calcResults = null }) {
   const sectionRef = useRef(null)
   const [flipped, setFlipped] = useState(false)
 
@@ -273,27 +275,86 @@ export default function Pricing() {
         {/* Plan cards */}
         <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', alignItems: 'stretch' }}>
           {plans.map((plan, i) => (
-            <PlanCard key={plan.months} plan={plan} delay={i * 150} flipped={flipped} />
+            <PlanCard
+              key={plan.months}
+              plan={plan}
+              delay={i * 150}
+              flipped={flipped}
+              active={plan.months === minTerm}
+            />
           ))}
         </div>
 
-        {/* ROI */}
-        <div style={{
-          marginTop: '3rem', textAlign: 'center',
-          padding: '1.75rem 2rem',
-          background: 'rgba(201,168,76,0.04)',
-          border: '1px solid rgba(201,168,76,0.1)',
-          borderRadius: '16px',
-        }}>
-          <p style={{
-            fontFamily: 'Playfair Display, serif',
-            fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-            color: '#f5f5f5', fontStyle: 'italic',
+        {/* Personalized banner from calculator */}
+        {calcResults && calcResults.revenueLoss > 0 ? (
+          <div style={{
+            marginTop: '2rem',
+            padding: '1.5rem 2rem',
+            background: 'linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03))',
+            border: '1px solid rgba(201,168,76,0.25)',
+            borderRadius: '16px',
+            display: 'flex', flexWrap: 'wrap', gap: '1.5rem',
+            alignItems: 'center', justifyContent: 'space-between',
           }}>
-            "Bei nur einem gewonnenen Kunden hat sich{' '}
-            <span style={{ color: '#c9a84c' }}>ZenTime AI bereits bezahlt gemacht.</span>"
-          </p>
-        </div>
+            <div>
+              <div style={{
+                fontFamily: 'Inter, sans-serif', fontSize: '0.65rem',
+                letterSpacing: '0.3em', color: 'rgba(201,168,76,0.55)',
+                textTransform: 'uppercase', marginBottom: '0.3rem',
+              }}>
+                Basierend auf Ihrer Berechnung · {minTerm} Monate
+              </div>
+              <div style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: 'clamp(1rem, 2vw, 1.3rem)',
+                color: '#f5f5f5', fontStyle: 'italic',
+              }}>
+                Umsatzverlust:{' '}
+                <span style={{ color: '#e53e3e' }}>
+                  {calcResults.revenueLoss.toLocaleString('de-DE')}€
+                </span>
+                {' '}· ZenTime AI nach Steuer:{' '}
+                <span style={{ color: '#c9a84c' }}>
+                  {calcResults.netCost.toLocaleString('de-DE')}€
+                </span>
+              </div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{
+                fontFamily: 'Inter, sans-serif', fontSize: '0.65rem',
+                letterSpacing: '0.2em', color: 'rgba(201,168,76,0.5)',
+                textTransform: 'uppercase', marginBottom: '0.2rem',
+              }}>
+                Ihr Nettogewinn
+              </div>
+              <div style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: 'clamp(1.8rem, 3vw, 2.5rem)',
+                fontWeight: 900, color: '#c9a84c',
+                textShadow: '0 0 20px rgba(201,168,76,0.4)',
+              }}>
+                {calcResults.netGain.toLocaleString('de-DE')}€
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div style={{
+            marginTop: '2rem', textAlign: 'center',
+            padding: '1.5rem 2rem',
+            background: 'rgba(201,168,76,0.04)',
+            border: '1px solid rgba(201,168,76,0.1)',
+            borderRadius: '16px',
+          }}>
+            <p style={{
+              fontFamily: 'Playfair Display, serif',
+              fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+              color: '#f5f5f5', fontStyle: 'italic',
+            }}>
+              "Bei nur einem gewonnenen Kunden hat sich{' '}
+              <span style={{ color: '#c9a84c' }}>ZenTime AI bereits bezahlt gemacht.</span>"
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )
