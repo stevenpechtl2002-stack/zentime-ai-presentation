@@ -343,12 +343,12 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
             />
             <ResultCard
               icon="🧾"
-              label="Steuerlicher Vorteil (ca. 30% absetzbar)"
+              label="Steuerersparnis (100% Betriebsausgabe · ~30% Steuersatz)"
               value={taxSaving}
               suffix="€"
               animKey={`t-${animKey}`}
               accent
-              sub="Als Betriebsausgabe voll absetzbar"
+              sub="Volle Absetzbarkeit als Betriebsausgabe"
             />
             <ResultCard
               icon="📈"
@@ -366,7 +366,7 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
             fontFamily: 'Inter, sans-serif', fontSize: '0.68rem',
             color: 'rgba(245,245,245,0.18)', letterSpacing: '0.05em',
           }}>
-            Basis: {DAYS_PER_MONTH} Arbeitstage/Monat · {conversionPct}% Konversionsrate · 30% Steuersatz · Setup {plan.setup.toLocaleString('de-DE')}€ + {plan.monthly}€/Monat
+            Basis: {DAYS_PER_MONTH} Arbeitstage/Monat · {conversionPct}% Konversionsrate · ZenTime AI 100% Betriebsausgabe · Steuerersparnis bei ~30% Steuersatz · Setup {plan.setup.toLocaleString('de-DE')}€ + {plan.monthly}€/Monat
           </p>
         </div>
       </div>
