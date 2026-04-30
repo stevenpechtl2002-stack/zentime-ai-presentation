@@ -47,7 +47,6 @@ function Particle({ delay, triggered }) {
 export default function CTA() {
   const sectionRef = useRef(null)
   const [inView, setInView] = useState(false)
-  const [btnHovered, setBtnHovered] = useState(false)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -127,55 +126,6 @@ export default function CTA() {
         >
           In 24 Stunden live — Kein Risiko, jederzeit kündbar
         </motion.p>
-
-        {/* CTA Button */}
-        <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.7, ease: 'backOut' }}
-          onMouseEnter={() => setBtnHovered(true)}
-          onMouseLeave={() => setBtnHovered(false)}
-          style={{
-            padding: '1.25rem 3.5rem',
-            background: btnHovered
-              ? 'linear-gradient(135deg, #e4c46e 0%, #c9a84c 50%, #a07828 100%)'
-              : 'linear-gradient(135deg, #c9a84c 0%, #e4c46e 50%, #a07828 100%)',
-            border: 'none',
-            borderRadius: '999px',
-            fontSize: '1.1rem',
-            fontWeight: 700,
-            color: '#080808',
-            fontFamily: 'Inter, sans-serif',
-            letterSpacing: '0.05em',
-            boxShadow: btnHovered
-              ? '0 0 40px rgba(201,168,76,0.6), 0 0 80px rgba(201,168,76,0.3), 0 20px 60px rgba(0,0,0,0.4)'
-              : '0 0 20px rgba(201,168,76,0.3), 0 10px 40px rgba(0,0,0,0.3)',
-            transform: btnHovered ? 'scale(1.05) translateY(-2px)' : 'scale(1)',
-            transition: 'all 0.3s ease',
-            animation: inView ? 'btnPulse 2s ease-in-out infinite' : 'none',
-          }}
-        >
-          Kostenlose Demo anfragen
-        </motion.button>
-        <style>{`@keyframes btnPulse { 0%,100%{box-shadow:0 0 20px rgba(201,168,76,0.3), 0 10px 40px rgba(0,0,0,0.3)} 50%{box-shadow:0 0 40px rgba(201,168,76,0.5), 0 0 80px rgba(201,168,76,0.2), 0 10px 40px rgba(0,0,0,0.3)} }`}</style>
-
-        {/* Social icons */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="flex items-center gap-6 mt-6"
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(245,245,245,0.5)', fontSize: '0.9rem', fontFamily: 'Inter, sans-serif' }}>
-            <span style={{ fontSize: '1.2rem' }}>📱</span>
-            WhatsApp
-          </div>
-          <div style={{ width: '1px', height: '16px', background: 'rgba(245,245,245,0.15)' }} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'rgba(245,245,245,0.5)', fontSize: '0.9rem', fontFamily: 'Inter, sans-serif' }}>
-            <span style={{ fontSize: '1.2rem' }}>📞</span>
-            Telefon
-          </div>
-        </motion.div>
 
         {/* Footer */}
         <motion.div
