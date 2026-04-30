@@ -12,6 +12,7 @@ const CONVERSION_HINTS = [
 ]
 
 const PLANS = {
+  1:  { setup: 4000, monthly: 500, total: 4500 },
   3:  { setup: 4000, monthly: 500, total: 5500 },
   6:  { setup: 3500, monthly: 500, total: 6500 },
   12: { setup: 3000, monthly: 500, total: 9000 },
@@ -188,6 +189,13 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
   const pinRef = useRef(null)
   const [triggered, setTriggered] = useState(false)
 
+  const [displayTerm, setDisplayTerm] = useState(minTerm)
+
+  const handleTermChange = (val) => {
+    setDisplayTerm(val)
+    if (val !== 1) onMinTermChange(val)
+  }
+
   const [missedPerDay, setMissedPerDay] = useState(0)
   const [avgValue, setAvgValue]         = useState(0)
   const [conversionPct, setConversionPct] = useState(0)
@@ -206,8 +214,8 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
     return () => ctx.revert()
   }, [])
 
-  const plan           = PLANS[minTerm]
-  const days           = DAYS_PER_MONTH * minTerm
+  const plan           = PLANS[displayTerm]
+  const days           = DAYS_PER_MONTH * displayTerm
   const totalMissed    = missedPerDay * days
   const lostCustomers  = Math.round(totalMissed * (conversionPct / 100))
   const revenueLoss    = lostCustomers * avgValue
@@ -228,10 +236,12 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
   const breakEven = formatBreakEven(breakEvenDays)
 
   useEffect(() => {
-    onCalcUpdate?.({ minTerm, revenueLoss, zenCost, netGain, lostCustomers, totalMissed })
-  }, [minTerm, revenueLoss, zenCost, netGain])
+    if (displayTerm !== 1) {
+      onCalcUpdate?.({ minTerm: displayTerm, revenueLoss, zenCost, netGain, lostCustomers, totalMissed })
+    }
+  }, [displayTerm, revenueLoss, zenCost, netGain])
 
-  const animKey = `${missedPerDay}-${avgValue}-${conversionPct}-${minTerm}`
+  const animKey = `${missedPerDay}-${avgValue}-${conversionPct}-${displayTerm}`
 
   return (
     <section id="problem" ref={sectionRef} style={{ background: '#080808', minHeight: '280vh' }}>
@@ -306,9 +316,9 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
             Mindestlaufzeit
           </span>
           <Toggle
-            options={[[3, '3 Monate'], [6, '6 Monate'], [12, '12 Monate']]}
-            value={minTerm}
-            onChange={onMinTermChange}
+            options={[[1, '1 Monat'], [3, '3 Monate'], [6, '6 Monate'], [12, '12 Monate']]}
+            value={displayTerm}
+            onChange={handleTermChange}
           />
           <span style={{
             fontFamily: 'Inter, sans-serif', fontSize: '0.68rem',
@@ -327,16 +337,16 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
         }}>
           {/* Loss row */}
           <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
-            <ResultCard icon="📞" label={`Verpasste Anrufe in ${minTerm} Monaten`} value={totalMissed} animKey={`m-${animKey}`} />
+            <ResultCard icon="📞" label={`Verpasste Anrufe in ${displayTerm} ${displayTerm === 1 ? 'Monat' : 'Monaten'}`} value={totalMissed} animKey={`m-${animKey}`} />
             <ResultCard icon="👤" label={`Verlorene Kunden (${conversionPct}% Rate)`} value={lostCustomers} animKey={`c-${animKey}`} />
-            <ResultCard icon="💸" label={`Umsatzverlust in ${minTerm} Monaten`} value={revenueLoss} suffix="€" animKey={`l-${animKey}`} />
+            <ResultCard icon="💸" label={`Umsatzverlust in ${displayTerm} ${displayTerm === 1 ? 'Monat' : 'Monaten'}`} value={revenueLoss} suffix="€" animKey={`l-${animKey}`} />
           </div>
 
           {/* Divider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
             <div style={{ flex: 1, height: '1px', background: 'rgba(201,168,76,0.1)' }} />
             <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'rgba(201,168,76,0.4)', textTransform: 'uppercase' }}>
-              vs. ZenTime AI · {minTerm} Monate
+              vs. ZenTime AI · {displayTerm} {displayTerm === 1 ? 'Monat' : 'Monate'}
             </span>
             <div style={{ flex: 1, height: '1px', background: 'rgba(201,168,76,0.1)' }} />
           </div>
@@ -345,7 +355,7 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <ResultCard
               icon="☯"
-              label={`ZenTime AI Gesamt (${minTerm} Mo.) — Setup ${plan.setup.toLocaleString('de-DE')}€ + ${plan.monthly * minTerm}.${plan.monthly * minTerm >= 1000 ? '' : ''}€ Abo`}
+              label={`ZenTime AI Gesamt (${displayTerm} Mo.) — Setup ${plan.setup.toLocaleString('de-DE')}€ + ${(plan.monthly * displayTerm).toLocaleString('de-DE')}€ Abo`}
               value={zenCost}
               suffix="€"
               animKey={`z-${animKey}`}
@@ -353,7 +363,7 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
             />
             <ResultCard
               icon="📈"
-              label={`Ihr Gewinn mit ZenTime AI in ${minTerm} Monaten`}
+              label={`Ihr Gewinn mit ZenTime AI in ${displayTerm} ${displayTerm === 1 ? 'Monat' : 'Monaten'}`}
               value={netGain}
               suffix="€"
               animKey={`g-${animKey}`}
@@ -407,7 +417,7 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
             fontFamily: 'Inter, sans-serif', fontSize: '0.68rem',
             color: 'rgba(245,245,245,0.18)', letterSpacing: '0.05em',
           }}>
-            Basis: {DAYS_PER_MONTH} Arbeitstage/Monat · {conversionPct}% Konversionsrate · Setup {plan.setup.toLocaleString('de-DE')}€ + {plan.monthly}€/Monat
+            Basis: {DAYS_PER_MONTH} Arbeitstage/Monat · {conversionPct}% Konversionsrate · Setup {plan.setup.toLocaleString('de-DE')}€ + {plan.monthly}€/Monat{displayTerm === 1 ? ' · Nur zur Ansicht — Mindestlaufzeit 3 Monate' : ''}
           </p>
         </div>
       </div>

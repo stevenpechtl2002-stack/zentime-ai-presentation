@@ -14,10 +14,11 @@ const PATH_A = [
 ]
 
 const PATH_B = [
+  { icon: '💳', label: 'Zahlung', desc: 'Einmalzahlung Setup-Fee' },
   { icon: '📋', label: 'Infos zum Personalisieren', desc: 'Name, Stimme, Sprache, Branchenspezifik, typische Anfragen' },
-  { icon: '💳', label: 'Zahlung', desc: 'Einmalzahlung Setup + erstes Monat Abo' },
-  { icon: '⚙️', label: 'Personalisierung startet', desc: 'Bei Zahlungseingang beginnen wir sofort mit der Einrichtung' },
-  { icon: '🚀', label: 'Live in 24 Stunden', desc: 'Ihr KI Assistent ist aktiv — Abo läuft ab jetzt' },
+  { icon: '⚙️', label: 'Personalisierung startet', desc: 'Wir richten Ihren KI Assistenten ein' },
+  { icon: '📆', label: 'Abo Zahlung startet', desc: 'Monatliches Abo beginnt ab diesem Moment' },
+  { icon: '🚀', label: 'Live in 24 Stunden', desc: 'Ihr KI Assistent ist aktiv' },
 ]
 
 function Step({ icon, label, desc, index, visible, accent }) {
