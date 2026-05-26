@@ -1,11 +1,7 @@
 import { useState } from 'react'
-import emailjs from '@emailjs/browser'
 import { useLang } from '../LanguageContext'
-import { t } from '../translations'
 
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID'
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY'
+const FORM_EMAIL = 'stevenpechtl2002@gmail.com'
 
 const INDUSTRIES_DE = ['Beauty Salon', 'Friseur / Barbershop', 'Kfz-Werkstatt', 'Fitnessstudio', 'Restaurant', 'Bar / Club', 'Hotel / Pension', 'Massage & Wellness', 'Autowäsche', 'IT / Software', 'Sonstiges']
 const INDUSTRIES_EN = ['Beauty Salon', 'Hair / Barber Shop', 'Auto Workshop', 'Fitness Studio', 'Restaurant', 'Bar / Club', 'Hotel / Guesthouse', 'Massage & Wellness', 'Car Wash', 'IT / Software', 'Other']
@@ -53,23 +49,28 @@ export default function PersonalizationForm() {
     e.preventDefault()
     setStatus('sending')
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        {
-          company:    form.company,
-          industry:   form.industry,
-          contact:    form.contact,
-          email:      form.email,
-          phone:      form.phone,
-          agentLang:  form.agentLang,
-          hours:      form.hours,
-          requests:   form.requests,
-          notes:      form.notes,
-        },
-        EMAILJS_PUBLIC_KEY
-      )
-      setStatus('success')
+      const res = await fetch(`https://formsubmit.co/ajax/${FORM_EMAIL}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject:  `ZenTime AI Personalisierung — ${form.company}`,
+          Firmenname: form.company,
+          Branche:    form.industry,
+          Kontakt:    form.contact,
+          Email:      form.email,
+          Telefon:    form.phone,
+          Sprache:    form.agentLang,
+          Öffnungszeiten: form.hours,
+          Typische_Anfragen: form.requests,
+          Besonderheiten: form.notes,
+        }),
+      })
+      const data = await res.json()
+      if (data.success === 'true' || data.success === true) {
+        setStatus('success')
+      } else {
+        setStatus('error')
+      }
     } catch {
       setStatus('error')
     }
