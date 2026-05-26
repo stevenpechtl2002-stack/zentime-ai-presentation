@@ -189,7 +189,7 @@ export default function Problem({ onCalcUpdate }) {
   const pinRef = useRef(null)
   const [triggered, setTriggered] = useState(false)
 
-  const [displayTerm, setDisplayTerm] = useState(minTerm)
+  const [displayTerm, setDisplayTerm] = useState(3)
 
   const handleTermChange = (val) => {
     setDisplayTerm(val)
