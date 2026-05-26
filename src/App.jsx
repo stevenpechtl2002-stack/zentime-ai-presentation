@@ -18,7 +18,6 @@ import Demo from './components/Demo'
 import CTA from './components/CTA'
 
 export default function App() {
-  const [minTerm, setMinTerm] = useState(6)
   const [calcResults, setCalcResults] = useState(null)
 
   return (
@@ -28,18 +27,14 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
-        <Problem
-          minTerm={minTerm}
-          onMinTermChange={setMinTerm}
-          onCalcUpdate={setCalcResults}
-        />
+        <Problem onCalcUpdate={setCalcResults} />
         <Solution />
         <HowItWorks />
         <Benefits />
         <Compare />
         <Industries />
         <Demo />
-        <Pricing minTerm={minTerm} calcResults={calcResults} />
+        <Pricing calcResults={calcResults} />
         <Opinion />
         <CallFlow />
         <Testimonials />

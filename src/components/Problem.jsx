@@ -12,10 +12,10 @@ const CONVERSION_HINTS = [
 ]
 
 const PLANS = {
-  1:  { setup: 3000, monthly: 700, total: 3700 },
-  3:  { setup: 3000, monthly: 600, total: 4800 },
-  6:  { setup: 3000, monthly: 550, total: 6300 },
-  12: { setup: 3000, monthly: 500, total: 9000 },
+  1:  { setup: 3000, monthly: 575, total: 3575 },
+  3:  { setup: 3000, monthly: 575, total: 4725 },
+  6:  { setup: 3000, monthly: 575, total: 6450 },
+  12: { setup: 3000, monthly: 575, total: 9900 },
 }
 
 const DAYS_PER_MONTH = 22
@@ -184,7 +184,7 @@ function ResultCard({ icon, label, value, suffix = '', animKey, accent, large, s
   )
 }
 
-export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
+export default function Problem({ onCalcUpdate }) {
   const sectionRef = useRef(null)
   const pinRef = useRef(null)
   const [triggered, setTriggered] = useState(false)
@@ -193,7 +193,6 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
 
   const handleTermChange = (val) => {
     setDisplayTerm(val)
-    if (val !== 1) onMinTermChange(val)
   }
 
   const [missedPerDay, setMissedPerDay] = useState(0)
@@ -236,9 +235,7 @@ export default function Problem({ minTerm, onMinTermChange, onCalcUpdate }) {
   const breakEven = formatBreakEven(breakEvenDays)
 
   useEffect(() => {
-    if (displayTerm !== 1) {
-      onCalcUpdate?.({ minTerm: displayTerm, revenueLoss, zenCost, netGain, lostCustomers, totalMissed })
-    }
+    onCalcUpdate?.({ revenueLoss, zenCost, netGain, lostCustomers, totalMissed })
   }, [displayTerm, revenueLoss, zenCost, netGain])
 
   const animKey = `${missedPerDay}-${avgValue}-${conversionPct}-${displayTerm}`

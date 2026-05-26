@@ -15,36 +15,28 @@ const setup = [
 
 const plans = [
   {
-    months: 0,
+    name: 'Starter',
+    calls: 200,
     setup: 3000,
-    monthly: 700,
-    total: null,
+    monthly: 500,
     highlight: false,
     badge: null,
   },
   {
-    months: 3,
+    name: 'Business',
+    calls: 500,
     setup: 3000,
     monthly: 600,
-    total: 4800,
-    highlight: false,
-    badge: null,
-  },
-  {
-    months: 6,
-    setup: 3000,
-    monthly: 550,
-    total: 6300,
     highlight: true,
     badge: 'Beliebt',
   },
   {
-    months: 12,
+    name: 'Pro',
+    calls: 700,
     setup: 3000,
-    monthly: 500,
-    total: 9000,
+    monthly: 650,
     highlight: false,
-    badge: 'Bestes Angebot',
+    badge: 'Meiste Anrufe',
   },
 ]
 
@@ -110,9 +102,8 @@ function SetupCard({ flipped }) {
   )
 }
 
-function PlanCard({ plan, delay, flipped, active }) {
+function PlanCard({ plan, delay, flipped }) {
   const fmt = (n) => n.toLocaleString('de-DE')
-  const isHighlighted = plan.highlight || active
 
   return (
     <div style={{ perspective: '1000px', flex: 1, minWidth: '220px' }}>
@@ -122,46 +113,60 @@ function PlanCard({ plan, delay, flipped, active }) {
         transition: `transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
         transform: flipped ? 'rotateY(0deg)' : 'rotateY(90deg)',
       }}>
-        {(plan.badge || active) && (
+        {plan.badge && (
           <div style={{
             position: 'absolute', top: '-14px', left: '50%', transform: 'translateX(-50%)',
             padding: '0.3rem 1.2rem',
-            background: isHighlighted
+            background: plan.highlight
               ? 'linear-gradient(90deg, #c9a84c, #e4c46e)'
               : 'rgba(201,168,76,0.12)',
-            border: isHighlighted ? 'none' : '1px solid rgba(201,168,76,0.3)',
+            border: plan.highlight ? 'none' : '1px solid rgba(201,168,76,0.3)',
             borderRadius: '999px',
             fontSize: '0.65rem', letterSpacing: '0.2em',
-            color: isHighlighted ? '#080808' : '#c9a84c',
+            color: plan.highlight ? '#080808' : '#c9a84c',
             fontWeight: 700, textTransform: 'uppercase',
             fontFamily: 'Inter, sans-serif',
             whiteSpace: 'nowrap', zIndex: 1,
           }}>
-            {active ? '← Ihre Auswahl' : plan.badge}
+            {plan.badge}
           </div>
         )}
 
         <div style={{
           padding: '2.5rem 1.8rem',
-          background: isHighlighted
+          background: plan.highlight
             ? 'linear-gradient(145deg, rgba(201,168,76,0.14) 0%, rgba(8,8,8,0.95) 100%)'
             : 'linear-gradient(145deg, rgba(201,168,76,0.04) 0%, rgba(8,8,8,0.9) 100%)',
-          border: `1px solid ${isHighlighted ? 'rgba(201,168,76,0.4)' : 'rgba(201,168,76,0.12)'}`,
+          border: `1px solid ${plan.highlight ? 'rgba(201,168,76,0.4)' : 'rgba(201,168,76,0.12)'}`,
           borderRadius: '24px',
-          boxShadow: isHighlighted
+          boxShadow: plan.highlight
             ? '0 0 50px rgba(201,168,76,0.15), 0 20px 60px rgba(0,0,0,0.5)'
             : '0 10px 40px rgba(0,0,0,0.3)',
-          transition: 'all 0.4s ease',
           textAlign: 'center',
         }}>
-          {/* Duration label */}
+          {/* Plan name */}
           <div style={{
             fontFamily: 'Inter, sans-serif',
             fontSize: '0.65rem', letterSpacing: '0.3em',
             color: 'rgba(201,168,76,0.55)', textTransform: 'uppercase',
-            marginBottom: '1.5rem',
+            marginBottom: '0.5rem',
           }}>
-            {plan.months === 0 ? 'Ohne Mindestlaufzeit' : `${plan.months} Monate Mindestlaufzeit`}
+            {plan.name}
+          </div>
+
+          {/* Call volume */}
+          <div style={{
+            fontFamily: 'Playfair Display, serif',
+            fontSize: '2.2rem', fontWeight: 900, lineHeight: 1,
+            color: '#f5f5f5', marginBottom: '0.2rem',
+          }}>
+            {fmt(plan.calls)}
+          </div>
+          <div style={{
+            fontSize: '0.72rem', color: 'rgba(245,245,245,0.4)',
+            fontFamily: 'Inter, sans-serif', marginBottom: '1.5rem',
+          }}>
+            Anrufe / Monat inkl.
           </div>
 
           {/* Setup */}
@@ -198,46 +203,21 @@ function PlanCard({ plan, delay, flipped, active }) {
             </div>
           </div>
 
-          {/* Total */}
-          {plan.total ? (
-            <div style={{
-              padding: '0.6rem 1rem',
-              background: 'rgba(201,168,76,0.07)',
-              border: '1px solid rgba(201,168,76,0.18)',
-              borderRadius: '10px',
-              marginBottom: '1.5rem',
-            }}>
-              <div style={{ fontSize: '0.65rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.15rem' }}>
-                Gesamt ({plan.months} Monate)
-              </div>
-              <div style={{
-                fontFamily: 'Playfair Display, serif',
-                fontSize: '1.4rem', fontWeight: 900,
-                color: '#f5f5f5',
-              }}>
-                {fmt(plan.total)}€
-              </div>
+          {/* Extra calls */}
+          <div style={{
+            padding: '0.6rem 1rem',
+            background: 'rgba(201,168,76,0.07)',
+            border: '1px solid rgba(201,168,76,0.18)',
+            borderRadius: '10px',
+            marginBottom: '1.5rem',
+          }}>
+            <div style={{ fontSize: '0.65rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.15rem' }}>
+              Über {fmt(plan.calls)} Anrufe
             </div>
-          ) : (
-            <div style={{
-              padding: '0.6rem 1rem',
-              background: 'rgba(201,168,76,0.07)',
-              border: '1px solid rgba(201,168,76,0.18)',
-              borderRadius: '10px',
-              marginBottom: '1.5rem',
-            }}>
-              <div style={{ fontSize: '0.65rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.15rem' }}>
-                Laufzeit
-              </div>
-              <div style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '1rem', fontWeight: 700,
-                color: '#f5f5f5',
-              }}>
-                Monatlich kündbar
-              </div>
+            <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', fontWeight: 700, color: '#f5f5f5' }}>
+              0,80€ / Anruf
             </div>
-          )}
+          </div>
 
           <div style={{ width: '30px', height: '1px', background: 'rgba(201,168,76,0.2)', margin: '0 auto 1.5rem' }} />
 
@@ -255,7 +235,7 @@ function PlanCard({ plan, delay, flipped, active }) {
   )
 }
 
-export default function Pricing({ minTerm = 6, calcResults = null }) {
+export default function Pricing({ calcResults = null }) {
   const sectionRef = useRef(null)
   const [flipped, setFlipped] = useState(false)
 
@@ -305,11 +285,10 @@ export default function Pricing({ minTerm = 6, calcResults = null }) {
         <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap', alignItems: 'stretch' }}>
           {plans.map((plan, i) => (
             <PlanCard
-              key={plan.months}
+              key={plan.name}
               plan={plan}
               delay={i * 150}
               flipped={flipped}
-              active={plan.months === minTerm}
             />
           ))}
         </div>
@@ -331,7 +310,7 @@ export default function Pricing({ minTerm = 6, calcResults = null }) {
                 letterSpacing: '0.3em', color: 'rgba(201,168,76,0.55)',
                 textTransform: 'uppercase', marginBottom: '0.3rem',
               }}>
-                Basierend auf Ihrer Berechnung · {minTerm} Monate
+                Basierend auf Ihrer Berechnung
               </div>
               <div style={{
                 fontFamily: 'Playfair Display, serif',
