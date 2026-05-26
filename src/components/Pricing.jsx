@@ -16,17 +16,17 @@ const setup = [
 const plans = [
   {
     months: 3,
-    setup: 4000,
-    monthly: 500,
-    total: 5500,
+    setup: 3000,
+    monthly: 600,
+    total: 4800,
     highlight: false,
     badge: null,
   },
   {
     months: 6,
-    setup: 3500,
-    monthly: 500,
-    total: 6500,
+    setup: 3000,
+    monthly: 550,
+    total: 6300,
     highlight: true,
     badge: 'Beliebt',
   },
