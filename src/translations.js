@@ -144,8 +144,9 @@ export const t = {
         main: { icon: '👋', label: 'Dieser Zoom Call', desc: 'Wir schauen gemeinsam ob ZenTime AI zu Ihnen passt' },
         pathA: [
           { icon: '🤔', label: 'Bedenkzeit?', desc: 'Kein Problem — wir vereinbaren einen 2. Call' },
-          { icon: '📅', label: '2. Call', desc: 'Offene Fragen klären, dann gemeinsam entscheiden' },
+          { icon: '⚙️', label: 'Personalisieren', desc: 'Wir richten Ihren Assistenten testweise ein' },
           { icon: '🧪', label: 'Testzeit', desc: 'Testen Sie ZenTime AI risikofrei vor dem Start' },
+          { icon: '📅', label: '2. Call', desc: 'Feedback besprechen & gemeinsam entscheiden' },
         ],
         pathB: [
           { icon: '📝', label: 'Vertrag', desc: 'Einfacher Servicevertrag digital unterzeichnen' },
@@ -307,9 +308,10 @@ export const t = {
       steps: {
         main: { icon: '👋', label: 'This Zoom Call', desc: 'We explore together whether ZenTime AI is right for you' },
         pathA: [
-          { icon: '🤔', label: 'Need time?', desc: 'No problem — we schedule a 2nd call' },
-          { icon: '📅', label: '2nd Call', desc: 'Answer open questions, then decide together' },
+          { icon: '🤔', label: 'Need time?', desc: 'No problem — we set up a trial first' },
+          { icon: '⚙️', label: 'Personalize', desc: 'We set up your assistant for the trial' },
           { icon: '🧪', label: 'Trial period', desc: 'Test ZenTime AI risk-free before going live' },
+          { icon: '📅', label: '2nd Call', desc: 'Review feedback & decide together' },
         ],
         pathB: [
           { icon: '📝', label: 'Contract', desc: 'Sign a simple service agreement digitally' },
