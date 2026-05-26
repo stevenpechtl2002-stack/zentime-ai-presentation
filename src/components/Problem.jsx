@@ -9,6 +9,7 @@ const CONVERSION_HINTS = [
   { label: 'Kfz / Handwerk', value: 40 },
   { label: 'Hotel / Fitness', value: 55 },
   { label: 'Bar / Club', value: 60 },
+  { label: 'IT / Software', value: 35 },
 ]
 
 const PLANS = {
