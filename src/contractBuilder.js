@@ -129,33 +129,51 @@ bearbeitet und Anrufer weiterleitet.
     - Insolvenz des Kunden
 
 --------------------------------------------------------------------------------
-§ 5  Verfügbarkeit (SLA)
+§ 5  Verfügbarkeit und Support
 --------------------------------------------------------------------------------
-(1) Angestrebte monatliche Verfügbarkeit: 99,0 % (24/7, außer Wartung).
-(2) Geplante Wartung: mind. 24 Stunden Vorankündigung per E-Mail
-    (vorzugsweise 02:00–05:00 Uhr).
-(3) Support: steven.pechtl@zentime.io | Reaktionszeit: 2 Werktage.
+(1) Der Anbieter bemüht sich um eine durchschnittliche monatliche System-
+    verfügbarkeit von 99,0 % im Jahresmittel.
+
+(2) Nicht als Ausfallzeit gelten:
+    - Angekündigte Wartungsfenster (mind. 24 Stunden Vorankündigung per E-Mail,
+      vorzugsweise zwischen 02:00 und 05:00 Uhr)
+    - Ereignisse höherer Gewalt (Naturkatastrophen, Krieg, Pandemie,
+      staatliche Eingriffe)
+    - Ausfälle von Drittanbietern außerhalb des Einflussbereichs des Anbieters
+      (insbesondere ElevenLabs, Lovable, n8n, Vercel)
+    - Technische Störungen der allgemeinen Internetinfrastruktur
+
+(3) Kritische Störungen werden innerhalb von 2 Werktagen bearbeitet.
+    Support: steven.pechtl@zentime.io
 
 --------------------------------------------------------------------------------
-§ 6  KI-spezifischer Haftungsausschluss
+§ 6  KI-spezifische Hinweise und Haftung
 --------------------------------------------------------------------------------
-(1) Der Kunde nimmt zur Kenntnis, dass KI-Systeme keine 100 %ige Genauigkeit
-    garantieren können und gelegentlich fehlerhafte Ergebnisse liefern können.
+(1) Der Kunde nimmt zur Kenntnis, dass KI-basierte Systeme trotz kontinuier-
+    licher Optimierung nicht in allen Fällen fehlerfrei arbeiten und insbe-
+    sondere Transkriptions-, Verständnis- oder Zuordnungsfehler auftreten
+    können.
 
-(2) Der Anbieter haftet nicht für: fehlerhafte KI-Transkriptionen, verpasste
-    Buchungen durch KI-Fehler, Entscheidungen auf Basis von KI-Ausgaben,
-    Ausfälle durch Dritte (ElevenLabs, Lovable, n8n, Vercel),
-    Umsatzeinbußen durch Systemausfälle.
+(2) Der Anbieter schuldet keine vollständige Fehlerfreiheit der KI-generierten
+    Inhalte oder Prozesse.
 
-(3) Pflicht des Kunden: Anrufer sind zu Beginn jedes Gesprächs zu
-    informieren: "Ihr Anruf wird von unserem KI-Assistenten entgegengenommen
+(3) Der Anbieter haftet nicht für Schäden, die ausschließlich auf fehlerhaften
+    KI-generierten Inhalten beruhen, sofern kein vorsätzliches oder grob
+    fahrlässiges Verhalten des Anbieters vorliegt.
+
+(4) Die Haftung für die Verletzung wesentlicher Vertragspflichten bleibt
+    unberührt. In diesen Fällen ist die Haftung auf den vertragstypischen,
+    vorhersehbaren Schaden begrenzt.
+
+(5) Der Kunde verpflichtet sich sicherzustellen, dass Anrufer entsprechend
+    den gesetzlichen Vorgaben (insbesondere DSGVO, TDDDG, EU AI Act) über
+    die Nutzung KI-gestützter Verarbeitung informiert werden. Empfohlener
+    Hinweis: „Ihr Anruf wird von unserem KI-Assistenten entgegengenommen
     und für die Buchungsbearbeitung verarbeitet."
 
-(4) Freistellung: Verstößt der Kunde gegen die Informationspflicht gemäß
-    Abs. 3, stellt er den Anbieter von sämtlichen daraus resultierenden
-    Ansprüchen, Bußgeldern, Behördensanktionen und Kosten Dritter vollständig
-    frei. Dies gilt insbesondere für Ansprüche nach DSGVO, TDDDG sowie dem
-    EU AI Act.
+(6) Verstößt der Kunde gegen die Informationspflicht gemäß Abs. 5, stellt
+    er den Anbieter von sämtlichen daraus resultierenden Ansprüchen,
+    Bußgeldern, Behördensanktionen und Kosten Dritter vollständig frei.
 
 --------------------------------------------------------------------------------
 § 7  Datenschutz
@@ -303,8 +321,12 @@ Art. 4  Unterauftragsverarbeiter – Zentime Tech-Stack
   Lovable Technologies | Frontend + gesamte Supabase-Infrastruktur | EU
   Vercel Inc. | Hosting Landing Page – nur anonyme Analytics | USA / SCCs
 
-(2) ElevenLabs Scale (USA): Übertragung gemäß SCCs (Art. 46 Abs. 2 lit. c DSGVO).
-    DPA via privacy@elevenlabs.io. Audiodaten nicht dauerhaft gespeichert.
+(2) Der Anbieter hat mit sämtlichen eingesetzten Unterauftragsverarbeitern
+    die erforderlichen Auftragsverarbeitungsverträge gemäß Art. 28 DSGVO
+    sowie – sofern Drittlandübertragungen vorliegen – Standardvertragsklauseln
+    gemäß Art. 46 Abs. 2 lit. c DSGVO abgeschlossen. Dies gilt insbesondere
+    für ElevenLabs Inc. (USA) und Vercel Inc. (USA).
+    ElevenLabs-Audiodaten werden nicht dauerhaft gespeichert.
 
 (3) Lovable (EU): Hauptvertragspartner für Backend inkl. Supabase. EU-Verarbeitung.
 
