@@ -2,29 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const reviews = [
-  {
-    stars: 5,
-    quote: 'Seit ZenTime AI verpassen wir keinen Anruf mehr. Wir sind oft unter dem Auto — jetzt kümmert sich die KI drum. Kunden sind begeistert.',
-    name: 'Thomas M.',
-    role: 'Kfz-Werkstatt, München',
-  },
-  {
-    stars: 5,
-    quote: 'Wir sind den ganzen Tag am Kunden — da kann man nicht ans Telefon. ZenTime AI bucht die Termine selbstständig. Umsatz gestiegen, Stress gesunken.',
-    name: 'Sarah K.',
-    role: 'Beauty Salon, Hamburg',
-  },
-  {
-    stars: 5,
-    quote: 'ROI bereits im ersten Monat. Früher liefen Anrufe ins Leere wenn wir im Laden waren. Jetzt läuft alles automatisch — auch nachts.',
-    name: 'Marco R.',
-    role: 'Restaurant, Berlin',
-  },
-]
 
 function Stars({ count }) {
   return (
@@ -37,6 +18,8 @@ function Stars({ count }) {
 }
 
 export default function Testimonials() {
+  const { lang } = useLang()
+  const tr = t[lang].testimonials
   const sectionRef = useRef(null)
   const [inView, setInView] = useState(false)
 
@@ -63,7 +46,7 @@ export default function Testimonials() {
           color: 'rgba(201,168,76,0.6)', textTransform: 'uppercase',
           fontFamily: 'Inter, sans-serif', marginBottom: '0.5rem', textAlign: 'center',
         }}>
-          Erfahrungen
+          {tr.tag}
         </div>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
@@ -71,11 +54,11 @@ export default function Testimonials() {
           fontWeight: 800, color: '#f5f5f5',
           textAlign: 'center', marginBottom: '4rem',
         }}>
-          Was Kunden sagen
+          {tr.title}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {reviews.map((r, i) => (
+          {tr.items.map((r, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 60 }}
@@ -88,7 +71,7 @@ export default function Testimonials() {
                 borderRadius: '20px',
               }}
             >
-              <Stars count={r.stars} />
+              <Stars count={5} />
               <p style={{
                 fontFamily: 'Playfair Display, serif',
                 fontSize: '1rem',

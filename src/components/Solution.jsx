@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -92,6 +94,8 @@ function Phone() {
 }
 
 export default function Solution() {
+  const { lang } = useLang()
+  const tr = t[lang].solution
   const sectionRef = useRef(null)
   const phoneRef = useRef(null)
   const textRef = useRef(null)
@@ -145,7 +149,7 @@ export default function Solution() {
             color: 'rgba(201,168,76,0.6)', textTransform: 'uppercase',
             fontFamily: 'Inter, sans-serif',
           }}>
-            Die Lösung
+            {tr.tag}
           </div>
           <h2 style={{
             fontFamily: 'Playfair Display, serif',
@@ -153,17 +157,16 @@ export default function Solution() {
             fontWeight: 800, color: '#f5f5f5', lineHeight: 1.2,
           }}>
             ZenTime AI <br />
-            <span style={{ color: '#c9a84c' }}>antwortet für Sie</span>
+            <span style={{ color: '#c9a84c' }}>{tr.titleSub}</span>
           </h2>
           <p style={{
             fontSize: '1.1rem', color: 'rgba(245,245,245,0.6)',
             lineHeight: 1.7, fontFamily: 'Inter, sans-serif',
           }}>
-            Ihr KI Mitarbeiter — <strong style={{ color: '#f5f5f5' }}>24 Stunden, 7 Tage, 365 Tage</strong>.
-            Kein Urlaub, keine Krankheit, keine Pausen.
+            {tr.sub}
           </p>
           <div className="flex flex-wrap gap-4">
-            {['Sofortige Antwort', 'Natürliche Sprache', 'Terminbuchung', 'Mehrsprachig'].map(tag => (
+            {tr.tags.map(tag => (
               <span
                 key={tag}
                 style={{

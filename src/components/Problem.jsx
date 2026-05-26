@@ -1,16 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const CONVERSION_HINTS = [
-  { label: 'Restaurant / Beauty / Friseur', value: 75 },
-  { label: 'Kfz / Handwerk', value: 40 },
-  { label: 'Hotel / Fitness', value: 55 },
-  { label: 'Bar / Club', value: 60 },
-  { label: 'IT / Software', value: 35 },
-]
 
 const PLANS = {
   starter:  { setup: 3000, monthly: 500, calls: 200 },
@@ -185,6 +179,8 @@ function ResultCard({ icon, label, value, suffix = '', animKey, accent, large, s
 }
 
 export default function Problem({ onCalcUpdate }) {
+  const { lang } = useLang()
+  const tr = t[lang].problem
   const sectionRef = useRef(null)
   const pinRef = useRef(null)
   const [triggered, setTriggered] = useState(false)
@@ -223,10 +219,11 @@ export default function Problem({ onCalcUpdate }) {
 
   const formatBreakEven = (d) => {
     if (!d) return null
-    if (d <= 1)  return { value: 1,                unit: 'Tag',    sub: 'Setup sofort amortisiert' }
-    if (d < 30)  return { value: d,                unit: 'Tage',   sub: `Setup in ${d} Tagen bezahlt` }
-    if (d < 60)  return { value: Math.ceil(d / 7), unit: 'Wochen', sub: `Setup in ${Math.ceil(d/7)} Wochen bezahlt` }
-    return       { value: Math.ceil(d / 22),       unit: 'Monate', sub: `Setup in ${Math.ceil(d/22)} Monaten bezahlt` }
+    const de = lang === 'de'
+    if (d <= 1)  return { value: 1,                unit: de ? 'Tag' : 'day',    sub: de ? 'Setup sofort amortisiert' : 'Setup paid off immediately' }
+    if (d < 30)  return { value: d,                unit: de ? 'Tage' : 'days',  sub: de ? `Setup in ${d} Tagen bezahlt` : `Setup paid off in ${d} days` }
+    if (d < 60)  return { value: Math.ceil(d / 7), unit: de ? 'Wochen' : 'weeks', sub: de ? `Setup in ${Math.ceil(d/7)} Wochen bezahlt` : `Setup paid off in ${Math.ceil(d/7)} weeks` }
+    return       { value: Math.ceil(d / 22),       unit: de ? 'Monate' : 'months', sub: de ? `Setup in ${Math.ceil(d/22)} Monaten bezahlt` : `Setup paid off in ${Math.ceil(d/22)} months` }
   }
   const breakEven = formatBreakEven(breakEvenDays)
 
@@ -249,7 +246,7 @@ export default function Problem({ onCalcUpdate }) {
           letterSpacing: '0.4em', color: 'rgba(229,62,62,0.7)',
           textTransform: 'uppercase', marginBottom: '0.4rem',
         }}>
-          Ihr persönlicher Verlust-Rechner
+          {tr.tag}
         </div>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
@@ -257,7 +254,7 @@ export default function Problem({ onCalcUpdate }) {
           fontWeight: 800, color: '#f5f5f5',
           textAlign: 'center', marginBottom: '1.5rem',
         }}>
-          Das kostet Sie <span style={{ color: '#e53e3e' }}>Geld</span>
+          {tr.title} <span style={{ color: '#e53e3e' }}>{tr.titleRed}</span>
         </h2>
 
         {/* Inputs */}
@@ -266,9 +263,9 @@ export default function Problem({ onCalcUpdate }) {
           justifyContent: 'center', marginBottom: '1rem',
           opacity: triggered ? 1 : 0, transition: 'opacity 0.6s ease',
         }}>
-          <NumberInput label="Verpasste Anrufe pro Tag" value={missedPerDay} onChange={setMissedPerDay} max={999} step={1} />
-          <NumberInput label="Ø Wert pro Kunde" value={avgValue} onChange={setAvgValue} max={9999} step={10} suffix="€" />
-          <NumberInput label="Konversionsrate" value={conversionPct} onChange={setConversionPct} max={100} step={5} suffix="%" />
+          <NumberInput label={tr.missed} value={missedPerDay} onChange={setMissedPerDay} max={999} step={1} />
+          <NumberInput label={tr.avgValue} value={avgValue} onChange={setAvgValue} max={9999} step={10} suffix="€" />
+          <NumberInput label={tr.conversion} value={conversionPct} onChange={setConversionPct} max={100} step={5} suffix="%" />
         </div>
 
         {/* Conversion hints */}
@@ -278,7 +275,7 @@ export default function Problem({ onCalcUpdate }) {
           opacity: triggered ? 1 : 0, transition: 'opacity 0.6s ease 0.1s',
           maxWidth: '680px',
         }}>
-          {CONVERSION_HINTS.map(hint => (
+          {tr.hints.map(hint => (
             <button key={hint.value} onClick={() => setConversionPct(hint.value)} style={{
               padding: '0.25rem 0.8rem', borderRadius: '999px',
               border: `1px solid ${conversionPct === hint.value ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.12)'}`,
@@ -307,7 +304,7 @@ export default function Problem({ onCalcUpdate }) {
               letterSpacing: '0.25em', color: 'rgba(201,168,76,0.55)',
               textTransform: 'uppercase',
             }}>
-              Plan
+              {tr.plan}
             </span>
             <Toggle
               options={[
@@ -319,7 +316,7 @@ export default function Problem({ onCalcUpdate }) {
               onChange={setSelectedPlan}
             />
             <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.68rem', color: 'rgba(245,245,245,0.25)' }}>
-              {plan.calls} Anrufe/Mo inkl. · danach 0,80€/Anruf
+              {plan.calls} {tr.callsIncl}
             </span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
@@ -328,10 +325,12 @@ export default function Problem({ onCalcUpdate }) {
               letterSpacing: '0.25em', color: 'rgba(201,168,76,0.55)',
               textTransform: 'uppercase',
             }}>
-              Zeitraum
+              {tr.period}
             </span>
             <Toggle
-              options={[[1, '1 Monat'], [3, '3 Monate'], [6, '6 Monate'], [12, '12 Monate']]}
+              options={lang === 'de'
+                ? [[1, '1 Monat'], [3, '3 Monate'], [6, '6 Monate'], [12, '12 Monate']]
+                : [[1, '1 month'], [3, '3 months'], [6, '6 months'], [12, '12 months']]}
               value={viewMonths}
               onChange={setViewMonths}
             />
@@ -347,16 +346,16 @@ export default function Problem({ onCalcUpdate }) {
         }}>
           {/* Loss row */}
           <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
-            <ResultCard icon="📞" label={`Verpasste Anrufe in ${viewMonths === 1 ? '1 Monat' : `${viewMonths} Monaten`}`} value={totalMissed} animKey={`m-${animKey}`} />
-            <ResultCard icon="👤" label={`Verlorene Kunden (${conversionPct}% Rate)`} value={lostCustomers} animKey={`c-${animKey}`} />
-            <ResultCard icon="💸" label={`Umsatzverlust in ${viewMonths === 1 ? '1 Monat' : `${viewMonths} Monaten`}`} value={revenueLoss} suffix="€" animKey={`l-${animKey}`} />
+            <ResultCard icon="📞" label={lang === 'de' ? `Verpasste Anrufe in ${viewMonths === 1 ? '1 Monat' : `${viewMonths} Monaten`}` : `Missed calls in ${viewMonths === 1 ? '1 month' : `${viewMonths} months`}`} value={totalMissed} animKey={`m-${animKey}`} />
+            <ResultCard icon="👤" label={lang === 'de' ? `Verlorene Kunden (${conversionPct}% Rate)` : `Lost customers (${conversionPct}% rate)`} value={lostCustomers} animKey={`c-${animKey}`} />
+            <ResultCard icon="💸" label={lang === 'de' ? `Umsatzverlust in ${viewMonths === 1 ? '1 Monat' : `${viewMonths} Monaten`}` : `Revenue loss in ${viewMonths === 1 ? '1 month' : `${viewMonths} months`}`} value={revenueLoss} suffix="€" animKey={`l-${animKey}`} />
           </div>
 
           {/* Divider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
             <div style={{ flex: 1, height: '1px', background: 'rgba(201,168,76,0.1)' }} />
             <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '0.65rem', letterSpacing: '0.3em', color: 'rgba(201,168,76,0.4)', textTransform: 'uppercase' }}>
-              vs. ZenTime AI {selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} · {viewMonths === 1 ? '1 Monat' : `${viewMonths} Monate`}
+              vs. ZenTime AI {selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} · {viewMonths === 1 ? (lang === 'de' ? '1 Monat' : '1 month') : (lang === 'de' ? `${viewMonths} Monate` : `${viewMonths} months`)}
             </span>
             <div style={{ flex: 1, height: '1px', background: 'rgba(201,168,76,0.1)' }} />
           </div>
@@ -365,7 +364,9 @@ export default function Problem({ onCalcUpdate }) {
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
             <ResultCard
               icon="☯"
-              label={`ZenTime AI ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} (${viewMonths} Mo.) — Setup ${plan.setup.toLocaleString('de-DE')}€ + ${(plan.monthly * viewMonths).toLocaleString('de-DE')}€ Abo`}
+              label={lang === 'de'
+                ? `ZenTime AI ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} (${viewMonths} Mo.) — Setup ${plan.setup.toLocaleString('de-DE')}€ + ${(plan.monthly * viewMonths).toLocaleString('de-DE')}€ Abo`
+                : `ZenTime AI ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)} (${viewMonths} mo.) — Setup €${plan.setup.toLocaleString('en-EN')} + €${(plan.monthly * viewMonths).toLocaleString('en-EN')} subscription`}
               value={zenCost}
               suffix="€"
               animKey={`z-${animKey}`}
@@ -373,7 +374,9 @@ export default function Problem({ onCalcUpdate }) {
             />
             <ResultCard
               icon="📈"
-              label={`Ihr Gewinn mit ZenTime AI in ${viewMonths === 1 ? '1 Monat' : `${viewMonths} Monaten`}`}
+              label={lang === 'de'
+                ? `Ihr Gewinn mit ZenTime AI in ${viewMonths === 1 ? '1 Monat' : `${viewMonths} Monaten`}`
+                : `Your gain with ZenTime AI in ${viewMonths === 1 ? '1 month' : `${viewMonths} months`}`}
               value={netGain}
               suffix="€"
               animKey={`g-${animKey}`}
@@ -400,7 +403,7 @@ export default function Problem({ onCalcUpdate }) {
                   color: 'rgba(245,245,245,0.4)', letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                 }}>
-                  Setup von {plan.setup.toLocaleString('de-DE')}€ bezahlt sich nach
+                  {lang === 'de' ? `Setup von ${plan.setup.toLocaleString('de-DE')}€ bezahlt sich nach` : `Setup of €${plan.setup.toLocaleString('en-EN')} pays off in`}
                 </span>
                 <span style={{
                   fontFamily: 'Playfair Display, serif',
@@ -427,7 +430,9 @@ export default function Problem({ onCalcUpdate }) {
             fontFamily: 'Inter, sans-serif', fontSize: '0.68rem',
             color: 'rgba(245,245,245,0.18)', letterSpacing: '0.05em',
           }}>
-            Basis: {DAYS_PER_MONTH} Arbeitstage/Monat · {conversionPct}% Konversionsrate · {selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}: {plan.monthly}€/Mo · {plan.calls} Anrufe inkl.
+            {lang === 'de'
+              ? `Basis: ${DAYS_PER_MONTH} Arbeitstage/Monat · ${conversionPct}% Konversionsrate · ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}: ${plan.monthly}€/Mo · ${plan.calls} Anrufe inkl.`
+              : `Basis: ${DAYS_PER_MONTH} working days/month · ${conversionPct}% conversion rate · ${selectedPlan.charAt(0).toUpperCase() + selectedPlan.slice(1)}: €${plan.monthly}/mo · ${plan.calls} calls incl.`}
           </p>
         </div>
       </div>

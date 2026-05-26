@@ -1,23 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const rows = [
-  { label: 'Kosten', zen: '500€ / Monat', human: '3.500€ / Monat', zenCheck: true },
-  { label: 'Verfügbarkeit', zen: '24 / 7 / 365', human: '8 Std / Tag', zenCheck: true },
-  { label: 'Urlaub', zen: 'Nie', human: '30 Tage / Jahr', zenCheck: true },
-  { label: 'Krankheit', zen: 'Nie', human: 'Mehrmals / Jahr', zenCheck: true },
-  { label: 'Fehler', zen: 'Minimal', human: 'Menschlich', zenCheck: true },
-  { label: 'Setup-Zeit', zen: '24 Stunden', human: 'Wochen', zenCheck: true },
-]
-
 export default function Compare() {
+  const { lang } = useLang()
+  const tr = t[lang].compare
+  const rows = tr.rows
   const sectionRef = useRef(null)
   const [visibleRows, setVisibleRows] = useState(0)
 
   useEffect(() => {
+    setVisibleRows(0)
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -33,7 +30,7 @@ export default function Compare() {
       })
     }, sectionRef)
     return () => ctx.revert()
-  }, [])
+  }, [lang])
 
   return (
     <section
@@ -48,7 +45,7 @@ export default function Compare() {
           color: 'rgba(201,168,76,0.6)', textTransform: 'uppercase',
           fontFamily: 'Inter, sans-serif', marginBottom: '0.5rem', textAlign: 'center',
         }}>
-          Der Vergleich
+          {tr.tag}
         </div>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
@@ -56,7 +53,7 @@ export default function Compare() {
           fontWeight: 800, color: '#f5f5f5',
           textAlign: 'center', marginBottom: '4rem',
         }}>
-          ZenTime AI vs. <span style={{ color: 'rgba(245,245,245,0.4)' }}>Mensch</span>
+          {tr.title.split(' vs. ')[0]} vs. <span style={{ color: 'rgba(245,245,245,0.4)' }}>{tr.title.split(' vs. ')[1]}</span>
         </h2>
 
         {/* Table */}
@@ -71,7 +68,7 @@ export default function Compare() {
             borderBottom: '1px solid rgba(201,168,76,0.1)',
           }}>
             <div style={{ padding: '1.5rem 2rem', fontFamily: 'Inter, sans-serif', fontSize: '0.8rem', letterSpacing: '0.2em', color: 'rgba(245,245,245,0.4)', textTransform: 'uppercase' }}>
-              Kriterium
+              {lang === 'de' ? 'Kriterium' : 'Criteria'}
             </div>
             <div style={{
               padding: '1.5rem 2rem', textAlign: 'center',
@@ -81,10 +78,10 @@ export default function Compare() {
               borderLeft: '1px solid rgba(201,168,76,0.15)',
               borderRight: '1px solid rgba(201,168,76,0.15)',
             }}>
-              ☯ ZenTime AI
+              ☯ {tr.zenCol}
             </div>
             <div style={{ padding: '1.5rem 2rem', textAlign: 'center', fontFamily: 'Playfair Display, serif', fontSize: '1.1rem', color: 'rgba(245,245,245,0.5)', fontWeight: 600 }}>
-              Mensch
+              {tr.humanCol}
             </div>
           </div>
 
@@ -147,7 +144,7 @@ export default function Compare() {
           opacity: visibleRows >= rows.length ? 1 : 0,
           transition: 'opacity 0.8s ease 0.3s',
         }}>
-          7× günstiger · 3× mehr verfügbar · 0× Ausfall
+          {lang === 'de' ? '7× günstiger · 3× mehr verfügbar · 0× Ausfall' : '7× cheaper · 3× more available · 0× downtime'}
         </div>
       </div>
     </section>

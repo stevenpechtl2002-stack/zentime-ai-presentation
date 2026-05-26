@@ -1,18 +1,7 @@
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-
-const industries = [
-  { icon: '🚗', title: 'Kfz-Werkstätten', desc: 'Terminbuchung & Fahrzeugannahme rund um die Uhr' },
-  { icon: '🔧', title: 'Autowäschen & Tuning', desc: 'Termine & Anfragen automatisch entgegennehmen' },
-  { icon: '💅', title: 'Beauty Salons', desc: 'Buchungen verwalten ohne Unterbrechung beim Kunden' },
-  { icon: '💇', title: 'Friseure & Barbershops', desc: 'Kein verpasster Anruf mehr während der Arbeit am Kunden' },
-  { icon: '💆', title: 'Massage & Wellness', desc: 'Termine buchen & Rückfragen automatisch beantworten' },
-  { icon: '🏋️', title: 'Fitnessstudios', desc: 'Probetrainings buchen & Mitglieder betreuen' },
-  { icon: '🍕', title: 'Restaurants', desc: 'Reservierungen & Lieferanfragen rund um die Uhr' },
-  { icon: '🍺', title: 'Bars & Clubs', desc: 'Tischreservierungen & Event-Anfragen automatisch' },
-  { icon: '🏨', title: 'Hotels & Pensionen', desc: 'Buchungsanfragen & Check-in-Infos automatisieren' },
-  { icon: '⚡', title: 'Handwerksbetriebe', desc: 'Kostenvoranfragen annehmen & Termine koordinieren' },
-]
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 function IndustryCard({ item, index }) {
   const [hovered, setHovered] = useState(false)
@@ -61,6 +50,8 @@ function IndustryCard({ item, index }) {
 }
 
 export default function Industries() {
+  const { lang } = useLang()
+  const tr = t[lang].industries
   const trackRef = useRef(null)
   const containerRef = useRef(null)
   const isDragging = useRef(false)
@@ -92,7 +83,7 @@ export default function Industries() {
           color: 'rgba(201,168,76,0.6)', textTransform: 'uppercase',
           fontFamily: 'Inter, sans-serif', marginBottom: '0.5rem', textAlign: 'center',
         }}>
-          Für wen ist es?
+          {tr.tag}
         </div>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
@@ -100,7 +91,7 @@ export default function Industries() {
           fontWeight: 800, color: '#f5f5f5',
           textAlign: 'center',
         }}>
-          Ihre Branche ist dabei
+          {tr.title}
         </h2>
       </div>
 
@@ -133,7 +124,7 @@ export default function Industries() {
           }}
         >
           <div ref={trackRef} style={{ display: 'flex', gap: '1.5rem' }}>
-            {industries.map((item, i) => (
+            {tr.items.map((item, i) => (
               <IndustryCard key={i} item={item} index={i} />
             ))}
           </div>
@@ -147,7 +138,7 @@ export default function Industries() {
         fontFamily: 'Inter, sans-serif',
         letterSpacing: '0.15em',
       }}>
-        ← Ziehen zum Scrollen →
+        {lang === 'de' ? '← Ziehen zum Scrollen →' : '← Drag to scroll →'}
       </p>
     </section>
   )

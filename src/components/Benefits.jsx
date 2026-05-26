@@ -2,17 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const benefits = [
-  { icon: '💰', title: 'Kein verpasster Umsatz mehr', desc: 'Jeder Anruf wird beantwortet. Kein Kunde geht verloren.' },
-  { icon: '⏰', title: '24/7 erreichbar', desc: 'Nachts, am Wochenende, an Feiertagen — immer da.' },
-  { icon: '🤖', title: 'Kein extra Personal nötig', desc: 'Spart bis zu 3.000€/Monat im Vergleich zu einer Rezeptionistin.' },
-  { icon: '📅', title: 'Automatische Terminbuchung', desc: 'Termine werden direkt in Ihren Kalender gebucht.' },
-  { icon: '🌍', title: 'Mehrsprachig verfügbar', desc: 'Deutsch, Englisch, Türkisch und viele weitere Sprachen.' },
-  { icon: '📊', title: 'Alle Gespräche aufgezeichnet', desc: 'Vollständige Transkripte und Zusammenfassungen jedes Anrufs.' },
-]
 
 const directions = [
   { x: -100, y: 0 },
@@ -85,6 +78,8 @@ function BenefitCard({ benefit, index, inView }) {
 }
 
 export default function Benefits() {
+  const { lang } = useLang()
+  const tr = t[lang].benefits
   const sectionRef = useRef(null)
   const [inView, setInView] = useState(false)
 
@@ -112,7 +107,7 @@ export default function Benefits() {
           color: 'rgba(201,168,76,0.6)', textTransform: 'uppercase',
           fontFamily: 'Inter, sans-serif', marginBottom: '0.5rem', textAlign: 'center',
         }}>
-          Ihre Vorteile
+          {tr.tag}
         </div>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
@@ -120,11 +115,11 @@ export default function Benefits() {
           fontWeight: 800, color: '#f5f5f5',
           textAlign: 'center', marginBottom: '4rem',
         }}>
-          Was Sie bekommen
+          {tr.title}
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {benefits.map((b, i) => (
+          {tr.items.map((b, i) => (
             <BenefitCard key={i} benefit={b} index={i} inView={inView} />
           ))}
         </div>
