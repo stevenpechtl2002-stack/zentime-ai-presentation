@@ -291,6 +291,75 @@ export default function Pricing({ calcResults = null }) {
               flipped={flipped}
             />
           ))}
+
+          {/* Enterprise card */}
+          <div style={{ perspective: '1000px', flex: 1, minWidth: '220px' }}>
+            <div style={{
+              position: 'relative',
+              transformStyle: 'preserve-3d',
+              transition: `transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) ${3 * 150}ms`,
+              transform: flipped ? 'rotateY(0deg)' : 'rotateY(90deg)',
+            }}>
+              <div style={{
+                padding: '2.5rem 1.8rem',
+                background: 'linear-gradient(145deg, rgba(201,168,76,0.04) 0%, rgba(8,8,8,0.9) 100%)',
+                border: '1px solid rgba(201,168,76,0.12)',
+                borderRadius: '24px',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.3)',
+                textAlign: 'center',
+                display: 'flex', flexDirection: 'column', justifyContent: 'center',
+                minHeight: '380px',
+              }}>
+                <div style={{
+                  fontFamily: 'Inter, sans-serif', fontSize: '0.65rem',
+                  letterSpacing: '0.3em', color: 'rgba(201,168,76,0.55)',
+                  textTransform: 'uppercase', marginBottom: '0.5rem',
+                }}>
+                  Enterprise
+                </div>
+                <div style={{
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: '2rem', fontWeight: 900, color: '#f5f5f5',
+                  marginBottom: '0.2rem',
+                }}>
+                  700+
+                </div>
+                <div style={{
+                  fontSize: '0.72rem', color: 'rgba(245,245,245,0.4)',
+                  fontFamily: 'Inter, sans-serif', marginBottom: '2rem',
+                }}>
+                  Anrufe / Monat
+                </div>
+                <div style={{
+                  fontFamily: 'Playfair Display, serif',
+                  fontSize: '1.5rem', fontWeight: 900,
+                  background: 'linear-gradient(135deg, #c9a84c, #e4c46e)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  marginBottom: '0.5rem',
+                }}>
+                  Auf Anfrage
+                </div>
+                <div style={{
+                  fontFamily: 'Inter, sans-serif', fontSize: '0.8rem',
+                  color: 'rgba(245,245,245,0.4)', lineHeight: 1.6,
+                  marginBottom: '2rem',
+                }}>
+                  Spezialbedarf · Hohe Volumina · Individuelle Konditionen
+                </div>
+                <div style={{ width: '30px', height: '1px', background: 'rgba(201,168,76,0.2)', margin: '0 auto 1.5rem' }} />
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', textAlign: 'left' }}>
+                  {['Personalisierte Preisgestaltung', 'Unbegrenzte Anrufe möglich', 'Dedizierter Support', 'Individuelle Integrationen'].map((f, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+                      <span style={{ color: '#22c55e', fontSize: '0.85rem', flexShrink: 0, marginTop: '1px' }}>✓</span>
+                      <span style={{ fontSize: '0.82rem', color: 'rgba(245,245,245,0.6)', fontFamily: 'Inter, sans-serif', lineHeight: 1.4 }}>{f}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Personalized banner from calculator */}
