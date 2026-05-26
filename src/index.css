@@ -26,7 +26,7 @@ body {
   color: #f5f5f5;
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
-  cursor: auto;
+  cursor: default;
 }
 
 #root {
@@ -62,6 +62,3 @@ section {
   overflow: hidden;
 }
 
-@media (pointer: fine) {
-  * { cursor: none !important; }
-}
