@@ -13,7 +13,6 @@ import Compare from './components/Compare'
 import Industries from './components/Industries'
 import Pricing from './components/Pricing'
 import CallFlow from './components/CallFlow'
-import Opinion from './components/Opinion'
 import Demo from './components/Demo'
 import CTA from './components/CTA'
 
@@ -36,7 +35,6 @@ export default function App() {
         <Industries />
         <Demo />
         <Pricing calcResults={calcResults} />
-        <Opinion />
         <CallFlow />
         <CTA />
       </main>
