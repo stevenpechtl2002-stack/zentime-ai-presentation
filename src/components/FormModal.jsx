@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import PersonalizationForm from './PersonalizationForm'
+import ContractForm from './ContractForm'
 
 export default function FormModal({ onClose }) {
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function FormModal({ onClose }) {
     >
       {/* Close button */}
       <div style={{
-        width: '100%', maxWidth: '860px',
+        width: '100%', maxWidth: '780px',
         display: 'flex', justifyContent: 'flex-end',
         padding: '1rem 1.5rem', flexShrink: 0,
         position: 'sticky', top: 0, zIndex: 1,
@@ -38,9 +38,14 @@ export default function FormModal({ onClose }) {
         </button>
       </div>
 
-      {/* Form content */}
-      <div style={{ width: '100%', maxWidth: '860px', paddingBottom: '4rem' }}>
-        <PersonalizationForm />
+      {/* Contract form */}
+      <div style={{
+        width: '100%', maxWidth: '780px',
+        background: 'linear-gradient(180deg, #0d0d0d 0%, #0a0a0a 100%)',
+        borderRadius: '20px', marginBottom: '3rem',
+        border: '1px solid rgba(201,168,76,0.12)',
+      }}>
+        <ContractForm onClose={onClose} />
       </div>
     </div>
   )
