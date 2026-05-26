@@ -151,6 +151,12 @@ bearbeitet und Anrufer weiterleitet.
     informieren: "Ihr Anruf wird von unserem KI-Assistenten entgegengenommen
     und für die Buchungsbearbeitung verarbeitet."
 
+(4) Freistellung: Verstößt der Kunde gegen die Informationspflicht gemäß
+    Abs. 3, stellt er den Anbieter von sämtlichen daraus resultierenden
+    Ansprüchen, Bußgeldern, Behördensanktionen und Kosten Dritter vollständig
+    frei. Dies gilt insbesondere für Ansprüche nach DSGVO, TDDDG sowie dem
+    EU AI Act.
+
 --------------------------------------------------------------------------------
 § 7  Datenschutz
 --------------------------------------------------------------------------------
@@ -180,8 +186,12 @@ Geltungsdauer: Vertragslaufzeit + 3 Jahre danach.
 --------------------------------------------------------------------------------
 § 10  Referenznennung
 --------------------------------------------------------------------------------
-Der Anbieter ist berechtigt, den Kunden als Referenz auf der Zentime-Website
-zu nennen, sofern der Kunde nicht schriftlich widerspricht.
+Der Anbieter darf den Kunden (Firmenname, Branche) nur dann als Referenz
+auf der Zentime-Website, in Marketingmaterialien oder gegenüber Dritten
+nennen, wenn der Kunde hierzu ausdrücklich schriftlich zugestimmt hat
+(Opt-in). Die Zustimmung kann jederzeit ohne Angabe von Gründen schriftlich
+widerrufen werden (E-Mail genügt). Ohne diese Zustimmung ist jede
+Referenznennung untersagt.
 
 --------------------------------------------------------------------------------
 § 11  Schlussbestimmungen
