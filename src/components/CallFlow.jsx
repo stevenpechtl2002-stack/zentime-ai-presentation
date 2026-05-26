@@ -1,25 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const MAIN_STEPS = [
-  { icon: '👋', label: 'Dieser Zoom Call', desc: 'Wir schauen gemeinsam ob ZenTime AI zu Ihnen passt' },
-]
-
-const PATH_A = [
-  { icon: '🤔', label: 'Bedenkzeit?', desc: 'Kein Problem — wir vereinbaren einen 2. Call' },
-  { icon: '📅', label: '2. Call', desc: 'Offene Fragen klären, dann gemeinsam entscheiden' },
-]
-
-const PATH_B = [
-  { icon: '💳', label: 'Zahlung', desc: 'Einmalzahlung Setup-Fee' },
-  { icon: '📋', label: 'Infos zum Personalisieren', desc: 'Name, Stimme, Sprache, Branchenspezifik, typische Anfragen' },
-  { icon: '⚙️', label: 'Personalisierung startet', desc: 'Wir richten Ihren KI Assistenten ein' },
-  { icon: '📆', label: 'Abo Zahlung startet', desc: 'Monatliches Abo beginnt ab diesem Moment' },
-  { icon: '🚀', label: 'Live in 24 Stunden', desc: 'Ihr KI Assistent ist aktiv' },
-]
 
 function Step({ icon, label, desc, index, visible, accent }) {
   return (
@@ -75,6 +60,10 @@ function Arrow({ visible, index }) {
 export default function CallFlow() {
   const sectionRef = useRef(null)
   const [visible, setVisible] = useState(false)
+  const { lang } = useLang()
+  const tr = t[lang].callflow
+  const PATH_A = tr.steps.pathA
+  const PATH_B = tr.steps.pathB
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -100,7 +89,7 @@ export default function CallFlow() {
           color: 'rgba(201,168,76,0.55)', textTransform: 'uppercase',
           fontFamily: 'Inter, sans-serif', marginBottom: '0.5rem', textAlign: 'center',
         }}>
-          Ablauf dieses Gesprächs
+          {tr.tag}
         </div>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
@@ -108,12 +97,12 @@ export default function CallFlow() {
           fontWeight: 800, color: '#f5f5f5',
           textAlign: 'center', marginBottom: '4rem',
         }}>
-          Wie geht es heute weiter?
+          {tr.title}
         </h2>
 
         {/* Start */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '2.5rem' }}>
-          <Step icon="👋" label="Dieser Zoom Call" desc="Wir schauen gemeinsam ob ZenTime AI zu Ihnen passt" index={0} visible={visible} accent />
+          <Step icon={tr.steps.main.icon} label={tr.steps.main.label} desc={tr.steps.main.desc} index={0} visible={visible} accent />
         </div>
 
         {/* Branch point */}
@@ -143,7 +132,7 @@ export default function CallFlow() {
               fontFamily: 'Inter, sans-serif', fontSize: '0.72rem',
               color: 'rgba(229,62,62,0.7)', letterSpacing: '0.1em',
             }}>
-              Bedenkzeit gewünscht
+              {tr.thinkingTime}
             </div>
             <div style={{
               padding: '0.35rem 1.2rem', borderRadius: '999px',
@@ -152,7 +141,7 @@ export default function CallFlow() {
               fontFamily: 'Inter, sans-serif', fontSize: '0.72rem',
               color: 'rgba(34,197,94,0.7)', letterSpacing: '0.1em',
             }}>
-              Direkt entschieden ✓
+              {tr.directDecision}
             </div>
           </div>
         </div>
@@ -173,7 +162,7 @@ export default function CallFlow() {
               letterSpacing: '0.25em', color: 'rgba(229,62,62,0.5)',
               textTransform: 'uppercase', marginBottom: '1.5rem', textAlign: 'center',
             }}>
-              Option A
+              {tr.optionA}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'center' }}>
               {PATH_A.map((step, i) => (
@@ -205,7 +194,7 @@ export default function CallFlow() {
               letterSpacing: '0.25em', color: 'rgba(34,197,94,0.5)',
               textTransform: 'uppercase', marginBottom: '1.5rem', textAlign: 'center',
             }}>
-              Option B — Heute starten
+              {tr.optionB}
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', justifyContent: 'center', alignItems: 'flex-start' }}>
               {PATH_B.map((step, i) => (

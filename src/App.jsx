@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './index.css'
+import { LanguageProvider } from './LanguageContext'
 import Cursor from './components/Cursor'
 import Navbar from './components/Navbar'
 import ProgressBar from './components/ProgressBar'
@@ -21,6 +22,7 @@ export default function App() {
   const [calcResults, setCalcResults] = useState(null)
 
   return (
+    <LanguageProvider>
     <>
       <Cursor />
       <ProgressBar />
@@ -41,5 +43,6 @@ export default function App() {
         <CTA />
       </main>
     </>
+    </LanguageProvider>
   )
 }

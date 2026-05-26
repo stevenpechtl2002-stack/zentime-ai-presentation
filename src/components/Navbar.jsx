@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-
-const sections = [
-  { id: 'hero', label: 'Start' },
-  { id: 'problem', label: 'Problem' },
-  { id: 'solution', label: 'Lösung' },
-  { id: 'how', label: 'Wie es funktioniert' },
-  { id: 'benefits', label: 'Vorteile' },
-  { id: 'compare', label: 'Vergleich' },
-  { id: 'industries', label: 'Branchen' },
-  { id: 'pricing', label: 'Preise' },
-  { id: 'cta', label: 'Kontakt' },
-]
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const { lang, setLang } = useLang()
+  const tr = t[lang].nav
+
+  const sections = [
+    { id: 'problem', label: tr.problem },
+    { id: 'solution', label: tr.solution },
+    { id: 'pricing', label: tr.pricing },
+    { id: 'demo', label: 'Demo' },
+    { id: 'cta', label: tr.contact },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50)
@@ -48,7 +48,7 @@ export default function Navbar() {
       </button>
 
       <div className="hidden md:flex items-center gap-6">
-        {sections.slice(1).map((s) => (
+        {sections.map((s) => (
           <button
             key={s.id}
             onClick={() => scrollTo(s.id)}
@@ -60,6 +60,29 @@ export default function Navbar() {
             {s.label}
           </button>
         ))}
+
+        {/* Language toggle */}
+        <div style={{
+          display: 'inline-flex',
+          background: 'rgba(201,168,76,0.05)',
+          border: '1px solid rgba(201,168,76,0.18)',
+          borderRadius: '999px', padding: '2px', gap: '2px',
+          marginLeft: '0.5rem',
+        }}>
+          {['de', 'en'].map((l) => (
+            <button key={l} onClick={() => setLang(l)} style={{
+              padding: '0.25rem 0.8rem', borderRadius: '999px', border: 'none',
+              background: lang === l ? 'linear-gradient(135deg, #c9a84c, #e4c46e)' : 'transparent',
+              color: lang === l ? '#080808' : 'rgba(245,245,245,0.4)',
+              fontFamily: 'Inter, sans-serif', fontSize: '0.72rem',
+              fontWeight: lang === l ? 700 : 400,
+              cursor: 'pointer', transition: 'all 0.25s ease',
+              textTransform: 'uppercase', letterSpacing: '0.1em',
+            }}>
+              {l}
+            </button>
+          ))}
+        </div>
       </div>
     </motion.nav>
   )

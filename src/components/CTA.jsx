@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -47,6 +49,8 @@ function Particle({ delay, triggered }) {
 export default function CTA() {
   const sectionRef = useRef(null)
   const [inView, setInView] = useState(false)
+  const { lang } = useLang()
+  const tr = t[lang].cta
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -109,7 +113,7 @@ export default function CTA() {
             lineHeight: 1.1,
           }}
         >
-          Ihr KI Assistent wartet
+          {tr.title}
         </motion.h2>
 
         <motion.p
@@ -124,7 +128,7 @@ export default function CTA() {
             lineHeight: 1.6,
           }}
         >
-          In 24 Stunden live — Kein Risiko, jederzeit kündbar
+          {tr.sub}
         </motion.p>
 
         {/* Footer */}
@@ -140,7 +144,7 @@ export default function CTA() {
             letterSpacing: '0.1em',
           }}
         >
-          ☯ ZenTime AI · KI Telefon Assistent · Datenschutz · Impressum
+          {tr.footer}
         </motion.div>
       </div>
     </section>

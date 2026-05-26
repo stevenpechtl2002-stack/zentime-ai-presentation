@@ -2,19 +2,16 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const prompts = [
-  'Können Sie sich vorstellen, wie das bei Ihnen klingt?',
-  'Welche Fragen haben Sie noch?',
-  'Was hält Sie bisher davon ab?',
-  'Sehen Sie den ROI für Ihr Unternehmen?',
-]
 
 export default function Opinion() {
   const sectionRef = useRef(null)
   const [visible, setVisible] = useState(false)
+  const { lang } = useLang()
+  const tr = t[lang].opinion
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -38,7 +35,6 @@ export default function Opinion() {
     >
       <div className="max-w-4xl w-full flex flex-col items-center text-center">
 
-        {/* Zen symbol */}
         <motion.div
           initial={{ opacity: 0, scale: 0.6 }}
           animate={visible ? { opacity: 1, scale: 1 } : {}}
@@ -61,7 +57,7 @@ export default function Opinion() {
             fontFamily: 'Inter, sans-serif', marginBottom: '1rem',
           }}
         >
-          Ihre Meinung
+          {tr.tag}
         </motion.div>
 
         <motion.h2
@@ -75,14 +71,14 @@ export default function Opinion() {
             lineHeight: 1.15, marginBottom: '1.5rem',
           }}
         >
-          Was denken{' '}
+          {tr.title}{' '}
           <span style={{
             background: 'linear-gradient(135deg, #c9a84c, #e4c46e)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}>
-            Sie?
+            {tr.titleGold}
           </span>
         </motion.h2>
 
@@ -96,16 +92,14 @@ export default function Opinion() {
             maxWidth: '560px', marginBottom: '3rem',
           }}
         >
-          Ihr Eindruck, Ihre Fragen, Ihre Bedenken —
-          jetzt ist der richtige Moment.
+          {tr.sub}
         </motion.p>
 
-        {/* Question prompts */}
         <div style={{
           display: 'flex', flexWrap: 'wrap', gap: '0.75rem',
           justifyContent: 'center', maxWidth: '680px',
         }}>
-          {prompts.map((p, i) => (
+          {tr.prompts.map((p, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 15 }}
@@ -126,7 +120,6 @@ export default function Opinion() {
           ))}
         </div>
 
-        {/* Divider line */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={visible ? { scaleX: 1 } : {}}

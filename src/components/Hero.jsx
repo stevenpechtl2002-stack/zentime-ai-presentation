@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { gsap } from 'gsap'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 const TITLE = 'ZenTime AI'
 const PARTICLES_COUNT = 60
@@ -39,6 +41,8 @@ function Particle({ delay }) {
 }
 
 export default function Hero() {
+  const { lang } = useLang()
+  const tr = t[lang].hero
   const zenRef = useRef(null)
   const bgRef = useRef(null)
   const [lettersVisible, setLettersVisible] = useState(false)
@@ -150,7 +154,7 @@ export default function Hero() {
                 textTransform: 'uppercase',
               }}
             >
-              Nie wieder einen Anruf verpassen
+              {lang === 'de' ? 'Nie wieder einen Anruf verpassen' : 'Never miss a call again'}
             </motion.p>
           )}
         </AnimatePresence>

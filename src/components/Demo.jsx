@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Demo() {
   const sectionRef = useRef(null)
   const [visible, setVisible] = useState(false)
+  const { lang } = useLang()
+  const tr = t[lang].demo
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -32,7 +36,7 @@ export default function Demo() {
           color: 'rgba(201,168,76,0.55)', textTransform: 'uppercase',
           fontFamily: 'Inter, sans-serif', marginBottom: '0.5rem', textAlign: 'center',
         }}>
-          Live Demo
+          {tr.tag}
         </div>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
@@ -40,14 +44,14 @@ export default function Demo() {
           fontWeight: 800, color: '#f5f5f5',
           textAlign: 'center', marginBottom: '1rem',
         }}>
-          Testen Sie ZenTime AI
+          {tr.title}
         </h2>
         <p style={{
           textAlign: 'center', color: 'rgba(245,245,245,0.4)',
           fontFamily: 'Inter, sans-serif', fontSize: '0.95rem',
           marginBottom: '3rem',
         }}>
-          Sprechen Sie direkt mit dem KI Assistenten — so klingt es für Ihre Kunden.
+          {tr.sub}
         </p>
 
         <div

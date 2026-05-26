@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useLang } from '../LanguageContext'
+import { t } from '../translations'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -102,7 +104,7 @@ function SetupCard({ flipped }) {
   )
 }
 
-function PlanCard({ plan, delay, flipped }) {
+function PlanCard({ plan, delay, flipped, tr }) {
   const fmt = (n) => n.toLocaleString('de-DE')
 
   return (
@@ -166,13 +168,13 @@ function PlanCard({ plan, delay, flipped }) {
             fontSize: '0.72rem', color: 'rgba(245,245,245,0.4)',
             fontFamily: 'Inter, sans-serif', marginBottom: '1.5rem',
           }}>
-            Anrufe / Monat inkl.
+            {tr.callsIncl}
           </div>
 
           {/* Setup */}
           <div style={{ marginBottom: '1rem' }}>
             <div style={{ fontSize: '0.72rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.2rem' }}>
-              Setup (einmalig)
+              {tr.setupLabel}
             </div>
             <div style={{
               fontFamily: 'Playfair Display, serif',
@@ -189,7 +191,7 @@ function PlanCard({ plan, delay, flipped }) {
           {/* Monthly */}
           <div style={{ marginBottom: '1.25rem' }}>
             <div style={{ fontSize: '0.72rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.2rem' }}>
-              Monatlich
+              {tr.monthlyLabel}
             </div>
             <div style={{
               fontFamily: 'Playfair Display, serif',
@@ -212,17 +214,17 @@ function PlanCard({ plan, delay, flipped }) {
             marginBottom: '1.5rem',
           }}>
             <div style={{ fontSize: '0.65rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.15rem' }}>
-              Über {fmt(plan.calls)} Anrufe
+              {tr.overLimit} {fmt(plan.calls)} {tr.callsIncl}
             </div>
             <div style={{ fontFamily: 'Inter, sans-serif', fontSize: '1rem', fontWeight: 700, color: '#f5f5f5' }}>
-              0,80€ / Anruf
+              {tr.perCall}
             </div>
           </div>
 
           <div style={{ width: '30px', height: '1px', background: 'rgba(201,168,76,0.2)', margin: '0 auto 1.5rem' }} />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', textAlign: 'left' }}>
-            {planFeatures.map((f, i) => (
+            {tr.features.map((f, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
                 <span style={{ color: '#22c55e', fontSize: '0.85rem', flexShrink: 0, marginTop: '1px' }}>✓</span>
                 <span style={{ fontSize: '0.82rem', color: 'rgba(245,245,245,0.6)', fontFamily: 'Inter, sans-serif', lineHeight: 1.4 }}>{f}</span>
@@ -238,6 +240,8 @@ function PlanCard({ plan, delay, flipped }) {
 export default function Pricing({ calcResults = null }) {
   const sectionRef = useRef(null)
   const [flipped, setFlipped] = useState(false)
+  const { lang } = useLang()
+  const tr = t[lang].pricing
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -263,7 +267,7 @@ export default function Pricing({ calcResults = null }) {
           color: 'rgba(201,168,76,0.6)', textTransform: 'uppercase',
           fontFamily: 'Inter, sans-serif', marginBottom: '0.5rem', textAlign: 'center',
         }}>
-          Transparent & Fair
+          {tr.tag}
         </div>
         <h2 style={{
           fontFamily: 'Playfair Display, serif',
@@ -271,14 +275,14 @@ export default function Pricing({ calcResults = null }) {
           fontWeight: 800, color: '#f5f5f5',
           textAlign: 'center', marginBottom: '1rem',
         }}>
-          Ihre Investition
+          {tr.title}
         </h2>
         <p style={{
           textAlign: 'center', color: 'rgba(245,245,245,0.4)',
           fontFamily: 'Inter, sans-serif', fontSize: '0.95rem',
           marginBottom: '3rem',
         }}>
-          Kein verstecktes Kleingedrucktes. Alles inklusive.
+          {tr.sub}
         </p>
 
         {/* Plan cards */}
@@ -289,6 +293,7 @@ export default function Pricing({ calcResults = null }) {
               plan={plan}
               delay={i * 150}
               flipped={flipped}
+              tr={tr}
             />
           ))}
 
@@ -315,7 +320,7 @@ export default function Pricing({ calcResults = null }) {
                   letterSpacing: '0.3em', color: 'rgba(201,168,76,0.55)',
                   textTransform: 'uppercase', marginBottom: '0.5rem',
                 }}>
-                  Enterprise
+                  {tr.enterprise}
                 </div>
                 <div style={{
                   fontFamily: 'Playfair Display, serif',
@@ -328,7 +333,7 @@ export default function Pricing({ calcResults = null }) {
                   fontSize: '0.72rem', color: 'rgba(245,245,245,0.4)',
                   fontFamily: 'Inter, sans-serif', marginBottom: '2rem',
                 }}>
-                  Anrufe / Monat
+                  {tr.enterpriseCalls}
                 </div>
                 <div style={{
                   fontFamily: 'Playfair Display, serif',
@@ -339,18 +344,18 @@ export default function Pricing({ calcResults = null }) {
                   backgroundClip: 'text',
                   marginBottom: '0.5rem',
                 }}>
-                  Auf Anfrage
+                  {tr.enterprisePrice}
                 </div>
                 <div style={{
                   fontFamily: 'Inter, sans-serif', fontSize: '0.8rem',
                   color: 'rgba(245,245,245,0.4)', lineHeight: 1.6,
                   marginBottom: '2rem',
                 }}>
-                  Spezialbedarf · Hohe Volumina · Individuelle Konditionen
+                  {tr.enterpriseDesc}
                 </div>
                 <div style={{ width: '30px', height: '1px', background: 'rgba(201,168,76,0.2)', margin: '0 auto 1.5rem' }} />
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', textAlign: 'left' }}>
-                  {['Personalisierte Preisgestaltung', 'Unbegrenzte Anrufe möglich', 'Dedizierter Support', 'Individuelle Integrationen'].map((f, i) => (
+                  {tr.enterpriseFeatures.map((f, i) => (
                     <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
                       <span style={{ color: '#22c55e', fontSize: '0.85rem', flexShrink: 0, marginTop: '1px' }}>✓</span>
                       <span style={{ fontSize: '0.82rem', color: 'rgba(245,245,245,0.6)', fontFamily: 'Inter, sans-serif', lineHeight: 1.4 }}>{f}</span>
@@ -379,18 +384,18 @@ export default function Pricing({ calcResults = null }) {
                 letterSpacing: '0.3em', color: 'rgba(201,168,76,0.55)',
                 textTransform: 'uppercase', marginBottom: '0.3rem',
               }}>
-                Basierend auf Ihrer Berechnung
+                {tr.bannerTag}
               </div>
               <div style={{
                 fontFamily: 'Playfair Display, serif',
                 fontSize: 'clamp(1rem, 2vw, 1.3rem)',
                 color: '#f5f5f5', fontStyle: 'italic',
               }}>
-                Umsatzverlust:{' '}
+                {tr.revenueLoss}:{' '}
                 <span style={{ color: '#e53e3e' }}>
                   {calcResults.revenueLoss.toLocaleString('de-DE')}€
                 </span>
-                {' '}· ZenTime AI Investition:{' '}
+                {' '}· {tr.investment}:{' '}
                 <span style={{ color: '#c9a84c' }}>
                   {calcResults.zenCost.toLocaleString('de-DE')}€
                 </span>
@@ -402,7 +407,7 @@ export default function Pricing({ calcResults = null }) {
                 letterSpacing: '0.2em', color: 'rgba(201,168,76,0.5)',
                 textTransform: 'uppercase', marginBottom: '0.2rem',
               }}>
-                Ihr Nettogewinn
+                {tr.netGain}
               </div>
               <div style={{
                 fontFamily: 'Playfair Display, serif',
@@ -427,8 +432,7 @@ export default function Pricing({ calcResults = null }) {
               fontSize: 'clamp(1rem, 2vw, 1.2rem)',
               color: '#f5f5f5', fontStyle: 'italic',
             }}>
-              "Bei nur einem gewonnenen Kunden hat sich{' '}
-              <span style={{ color: '#c9a84c' }}>ZenTime AI bereits bezahlt gemacht.</span>"
+              "{tr.quote}"
             </p>
           </div>
         )}
