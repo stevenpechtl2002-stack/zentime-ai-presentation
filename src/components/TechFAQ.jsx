@@ -23,8 +23,8 @@ const FAQ_DE = [
     a: 'Dann greift die Weiterleitung — der Anruf landet bei dir direkt. Ausfälle von Drittanbietern sind im SLA explizit geregelt und von der Haftung ausgeschlossen.',
   },
   {
-    q: 'Kann ich den Gesprächsablauf selbst anpassen?',
-    a: 'Ja, über das Dashboard. Begrüßungstext, Routing-Regeln, Antworten — alles konfigurierbar. Für tiefere Anpassungen über n8n-Workflows bin ich direkt ansprechbar.',
+    q: 'Kann ich den Gesprächsablauf anpassen?',
+    a: 'Ja — du sagst mir was geändert werden soll, ich setze es um. Begrüßungstext, Routing-Regeln, Antworten, Gesprächslogik — kein technisches Wissen deinerseits nötig.',
   },
   {
     q: 'Wie skaliert das bei hohem Anrufvolumen?',
@@ -67,8 +67,8 @@ const FAQ_EN = [
     a: 'Failover kicks in — the call routes directly to you. Third-party outages are explicitly covered in the SLA and excluded from liability.',
   },
   {
-    q: 'Can I customize the conversation flow?',
-    a: 'Yes, via the dashboard. Greeting text, routing rules, responses — all configurable. For deeper customization via n8n workflows I\'m directly available.',
+    q: 'Can the conversation flow be customized?',
+    a: 'Yes — you tell me what needs to change, I implement it. Greeting text, routing rules, responses, conversation logic — no technical knowledge required on your end.',
   },
   {
     q: 'How does it scale at high call volume?',
