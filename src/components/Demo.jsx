@@ -59,11 +59,20 @@ export default function Demo() {
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'opacity 0.8s ease, transform 0.8s ease',
-            display: 'flex',
-            justifyContent: 'center',
+            borderRadius: '16px',
+            overflow: 'hidden',
+            border: '1px solid rgba(201,168,76,0.15)',
+            boxShadow: '0 0 40px rgba(201,168,76,0.08), 0 20px 60px rgba(0,0,0,0.5)',
           }}
         >
-          <elevenlabs-convai agent-id="agent_5101ksjdr0xgf50a587wvrd2cnrg" />
+          <iframe
+            src="https://www.zentime.io/embed/app/e933d6ac-2a92-4245-9ed5-58e1679aa974"
+            width="100%"
+            height="800"
+            frameBorder="0"
+            style={{ borderRadius: '16px', display: 'block' }}
+            allow="clipboard-write; microphone"
+          />
         </div>
       </div>
     </section>
