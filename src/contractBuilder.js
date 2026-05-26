@@ -181,7 +181,8 @@ bearbeitet und Anrufer weiterleitet.
 (1) Zentime verarbeitet personenbezogene Daten als Auftragsverarbeiter
     gemäß Art. 28 DSGVO. Details sind in Teil 2 (AVV) geregelt.
 (2) Der Kunde ist Verantwortlicher im Sinne der DSGVO.
-(3) Transkriptionen: automatische Löschung nach 90 Tagen.
+(3) Gesprächsdaten: Weder Rohaufnahmen noch Transkriptionen werden dauerhaft
+    gespeichert. ElevenLabs verarbeitet Sprache ausschließlich in Echtzeit.
     Serverstandort: EU (Lovable/Supabase Frankfurt).
     Datenexport bei Vertragsende auf Anfrage innerhalb von 30 Tagen.
 
@@ -367,9 +368,11 @@ Art. 7  Technische und organisatorische Maßnahmen (TOM) – Art. 32 DSGVO
 --------------------------------------------------------------------------------
 Art. 8  Datenlösch- und Rückgabepflichten
 --------------------------------------------------------------------------------
-(1) Nach Vertragsende: Export oder Löschung innerhalb von 30 Tagen auf Anfrage.
-(2) Transkriptionen: automatische Löschung nach 90 Tagen.
-    ElevenLabs-Audiodaten: nicht dauerhaft gespeichert.
+(1) Nach Vertragsende: Export oder Löschung der gespeicherten Daten innerhalb
+    von 30 Tagen auf Anfrage.
+(2) Gesprächsdaten: Weder Rohaufnahmen noch Transkriptionen werden dauerhaft
+    gespeichert. ElevenLabs verarbeitet Sprache ausschließlich in Echtzeit,
+    keine persistente Datenspeicherung.
 (3) n8n-Workflow-Logs: Löschung nach 30 Tagen.
 (4) Löschbestätigung schriftlich auf Anfrage.
 

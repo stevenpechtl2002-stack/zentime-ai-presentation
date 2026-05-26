@@ -32,7 +32,7 @@ const FAQ_DE = [
   },
   {
     q: 'Werden Gespräche aufgezeichnet und wer hat Zugriff?',
-    a: 'Transkriptionen ja, Rohaufnahmen nein — ElevenLabs speichert keine dauerhaften Audiodateien. Transkriptionen liegen in deiner Supabase-Instanz, Löschung automatisch nach 90 Tagen. Nur du als Kunde hast Zugriff.',
+    a: 'Nein — weder Rohaufnahmen noch Transkriptionen werden gespeichert. ElevenLabs verarbeitet die Sprache in Echtzeit und speichert keine dauerhaften Daten. Nach dem Gespräch bleibt nichts zurück.',
   },
   {
     q: 'Wie läuft das Onboarding technisch ab?',
@@ -76,7 +76,7 @@ const FAQ_EN = [
   },
   {
     q: 'Are conversations recorded and who has access?',
-    a: 'Transcriptions yes, raw recordings no — ElevenLabs stores no permanent audio files. Transcriptions live in your Supabase instance, auto-deleted after 90 days. Only you as the customer have access.',
+    a: 'No — neither raw recordings nor transcriptions are stored. ElevenLabs processes speech in real time and stores no permanent data. After the call, nothing is retained.',
   },
   {
     q: 'How does technical onboarding work?',
