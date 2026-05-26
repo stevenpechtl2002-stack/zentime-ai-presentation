@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLang } from '../LanguageContext'
 import ContractModal from './ContractModal'
+import { buildFullContract } from '../contractBuilder'
 
 const FORM_EMAIL = 'stevenpechtl2002@gmail.com'
 
@@ -60,6 +61,7 @@ export default function PersonalizationForm() {
     e.preventDefault()
     setStatus('sending')
     try {
+      const contractText = buildFullContract(form)
       const res = await fetch(`https://formsubmit.co/ajax/${FORM_EMAIL}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -78,11 +80,13 @@ export default function PersonalizationForm() {
           DSB:       form.dsb,
           Typische_Anfragen: form.requests,
           Besonderheiten: form.notes,
+          Vertrag:   contractText,
         }),
       })
       const data = await res.json()
       if (data.success === 'true' || data.success === true) {
         setStatus('success')
+        setShowContract(true)
       } else {
         setStatus('error')
       }
@@ -156,7 +160,7 @@ export default function PersonalizationForm() {
                 boxShadow: '0 0 24px rgba(201,168,76,0.3)',
               }}
             >
-              {isDE ? 'Vertrag ansehen →' : 'View contract →'}
+              {isDE ? 'Vertrag erneut öffnen →' : 'Open contract again →'}
             </button>
           </div>
         ) : (
