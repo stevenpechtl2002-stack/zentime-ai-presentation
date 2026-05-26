@@ -1,11 +1,18 @@
 import { useState } from 'react'
 import { useLang } from '../LanguageContext'
+import ContractModal from './ContractModal'
 
 const FORM_EMAIL = 'stevenpechtl2002@gmail.com'
 
 const INDUSTRIES_DE = ['Beauty Salon', 'Friseur / Barbershop', 'Kfz-Werkstatt', 'Fitnessstudio', 'Restaurant', 'Bar / Club', 'Hotel / Pension', 'Massage & Wellness', 'Autowäsche', 'IT / Software', 'Sonstiges']
 const INDUSTRIES_EN = ['Beauty Salon', 'Hair / Barber Shop', 'Auto Workshop', 'Fitness Studio', 'Restaurant', 'Bar / Club', 'Hotel / Guesthouse', 'Massage & Wellness', 'Car Wash', 'IT / Software', 'Other']
 const LANGUAGES = ['Deutsch', 'Englisch', 'Türkisch', 'Arabisch', 'Spanisch', 'Andere']
+
+const PLANS = [
+  { key: 'STARTER',  monthly: '500€', calls: '200', label: 'Starter' },
+  { key: 'BUSINESS', monthly: '600€', calls: '500', label: 'Business' },
+  { key: 'PRO',      monthly: '650€', calls: '700', label: 'Pro' },
+]
 
 function Field({ label, children }) {
   return (
@@ -34,14 +41,18 @@ const inputStyle = {
 export default function PersonalizationForm() {
   const { lang } = useLang()
   const industries = lang === 'de' ? INDUSTRIES_DE : INDUSTRIES_EN
+  const isDE = lang === 'de'
 
   const [form, setForm] = useState({
     company: '', industry: '', contact: '', email: '',
     phone: '', agentLang: 'Deutsch', hours: '',
     requests: '', notes: '',
+    address: '', vatId: '', dsb: '',
+    plan: 'STARTER',
   })
-  const [status, setStatus] = useState(null) // null | 'sending' | 'success' | 'error'
+  const [status, setStatus] = useState(null)
   const [focusedField, setFocusedField] = useState(null)
+  const [showContract, setShowContract] = useState(false)
 
   const set = (key) => (e) => setForm(f => ({ ...f, [key]: e.target.value }))
 
@@ -53,14 +64,18 @@ export default function PersonalizationForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          _subject:  `ZenTime AI Personalisierung — ${form.company}`,
+          _subject:  `ZenTime AI – ${form.plan} – ${form.company}`,
+          Tarif:     form.plan,
           Firmenname: form.company,
-          Branche:    form.industry,
-          Kontakt:    form.contact,
-          Email:      form.email,
-          Telefon:    form.phone,
-          Sprache:    form.agentLang,
+          Adresse:   form.address,
+          Branche:   form.industry,
+          Kontakt:   form.contact,
+          Email:     form.email,
+          Telefon:   form.phone,
+          Sprache:   form.agentLang,
           Öffnungszeiten: form.hours,
+          'USt-IdNr': form.vatId,
+          DSB:       form.dsb,
           Typische_Anfragen: form.requests,
           Besonderheiten: form.notes,
         }),
@@ -81,8 +96,6 @@ export default function PersonalizationForm() {
     onBlur:  () => setFocusedField(null),
     style: { ...inputStyle, borderColor: focusedField === key ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.2)' },
   })
-
-  const isDE = lang === 'de'
 
   return (
     <section
@@ -126,14 +139,60 @@ export default function PersonalizationForm() {
             <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.8rem', color: '#f5f5f5', marginBottom: '0.75rem' }}>
               {isDE ? 'Vielen Dank!' : 'Thank you!'}
             </h3>
-            <p style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(245,245,245,0.5)', fontSize: '1rem' }}>
+            <p style={{ fontFamily: 'Inter, sans-serif', color: 'rgba(245,245,245,0.5)', fontSize: '1rem', marginBottom: '2rem' }}>
               {isDE
                 ? 'Ihre Angaben wurden übermittelt. Wir melden uns innerhalb von 24 Stunden.'
                 : 'Your details have been submitted. We will get back to you within 24 hours.'}
             </p>
+            <button
+              onClick={() => setShowContract(true)}
+              style={{
+                padding: '0.9rem 2.5rem',
+                background: 'linear-gradient(135deg, #c9a84c, #e4c46e)',
+                border: 'none', borderRadius: '999px',
+                fontFamily: 'Playfair Display, serif',
+                fontSize: '1rem', fontWeight: 700,
+                color: '#080808', cursor: 'pointer',
+                boxShadow: '0 0 24px rgba(201,168,76,0.3)',
+              }}
+            >
+              {isDE ? 'Vertrag ansehen →' : 'View contract →'}
+            </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+            {/* Plan selector */}
+            <Field label={isDE ? 'Tarif wählen' : 'Select plan'}>
+              <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                {PLANS.map(p => (
+                  <div
+                    key={p.key}
+                    onClick={() => setForm(f => ({ ...f, plan: p.key }))}
+                    style={{
+                      flex: '1 1 140px', padding: '1rem', borderRadius: '12px', cursor: 'pointer',
+                      border: `1px solid ${form.plan === p.key ? 'rgba(201,168,76,0.6)' : 'rgba(201,168,76,0.15)'}`,
+                      background: form.plan === p.key ? 'rgba(201,168,76,0.1)' : 'rgba(201,168,76,0.02)',
+                      textAlign: 'center', transition: 'all 0.2s',
+                    }}
+                  >
+                    <div style={{
+                      fontFamily: 'Playfair Display, serif', fontWeight: 700,
+                      color: form.plan === p.key ? '#c9a84c' : 'rgba(245,245,245,0.5)',
+                      fontSize: '1rem', marginBottom: '0.25rem',
+                    }}>
+                      {p.label}
+                    </div>
+                    <div style={{
+                      fontFamily: 'Inter, sans-serif', fontSize: '0.72rem',
+                      color: form.plan === p.key ? 'rgba(201,168,76,0.7)' : 'rgba(245,245,245,0.3)',
+                    }}>
+                      {p.monthly}/Mo · {p.calls} Calls
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Field>
 
             {/* Row 1 */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }} className="form-grid">
@@ -167,6 +226,21 @@ export default function PersonalizationForm() {
                 <select value={form.agentLang} onChange={set('agentLang')} {...focused('agentLang')} style={{ ...inputStyle, borderColor: focusedField === 'agentLang' ? 'rgba(201,168,76,0.55)' : 'rgba(201,168,76,0.2)', cursor: 'pointer' }}>
                   {LANGUAGES.map(l => <option key={l} value={l} style={{ background: '#111' }}>{l}</option>)}
                 </select>
+              </Field>
+            </div>
+
+            {/* Adresse */}
+            <Field label={isDE ? 'Adresse (für Vertrag)' : 'Address (for contract)'}>
+              <input value={form.address} onChange={set('address')} placeholder={isDE ? 'Straße, PLZ, Ort' : 'Street, ZIP, City'} {...focused('address')} />
+            </Field>
+
+            {/* Row 4 – VAT + DSB */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }} className="form-grid">
+              <Field label={isDE ? 'USt-IdNr. (optional)' : 'VAT ID (optional)'}>
+                <input value={form.vatId} onChange={set('vatId')} placeholder="DE123456789" {...focused('vatId')} />
+              </Field>
+              <Field label={isDE ? 'Datenschutzbeauftragter (optional)' : 'Data protection officer (optional)'}>
+                <input value={form.dsb} onChange={set('dsb')} placeholder={isDE ? 'Name oder "keiner"' : 'Name or "none"'} {...focused('dsb')} />
               </Field>
             </div>
 
@@ -237,6 +311,10 @@ export default function PersonalizationForm() {
           </form>
         )}
       </div>
+
+      {showContract && (
+        <ContractModal form={form} onClose={() => setShowContract(false)} />
+      )}
 
       <style>{`
         @media (max-width: 640px) {

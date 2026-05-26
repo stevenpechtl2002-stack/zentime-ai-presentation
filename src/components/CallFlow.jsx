@@ -56,7 +56,7 @@ function Arrow({ visible, index, color = 'rgba(201,168,76,0.35)' }) {
   )
 }
 
-export default function CallFlow() {
+export default function CallFlow({ onOpenForm }) {
   const sectionRef = useRef(null)
   const [visible, setVisible] = useState(false)
   const { lang } = useLang()
@@ -75,10 +75,6 @@ export default function CallFlow() {
     }, sectionRef)
     return () => ctx.revert()
   }, [])
-
-  const scrollToForm = () => {
-    document.getElementById('personalization')?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <section
@@ -243,7 +239,7 @@ export default function CallFlow() {
             {/* CTA Button */}
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
               <button
-                onClick={scrollToForm}
+                onClick={onOpenForm}
                 style={{
                   padding: '0.9rem 2.5rem',
                   background: 'linear-gradient(135deg, #c9a84c, #e4c46e)',
