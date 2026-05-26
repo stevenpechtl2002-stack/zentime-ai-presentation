@@ -12,7 +12,7 @@ const CONVERSION_HINTS = [
 ]
 
 const PLANS = {
-  1:  { setup: 3000, monthly: 600, total: 3600 },
+  1:  { setup: 3000, monthly: 700, total: 3700 },
   3:  { setup: 3000, monthly: 600, total: 4800 },
   6:  { setup: 3000, monthly: 550, total: 6300 },
   12: { setup: 3000, monthly: 500, total: 9000 },

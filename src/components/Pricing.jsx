@@ -15,6 +15,14 @@ const setup = [
 
 const plans = [
   {
+    months: 0,
+    setup: 3000,
+    monthly: 700,
+    total: null,
+    highlight: false,
+    badge: null,
+  },
+  {
     months: 3,
     setup: 3000,
     monthly: 600,
@@ -153,7 +161,7 @@ function PlanCard({ plan, delay, flipped, active }) {
             color: 'rgba(201,168,76,0.55)', textTransform: 'uppercase',
             marginBottom: '1.5rem',
           }}>
-            {plan.months} Monate Mindestlaufzeit
+            {plan.months === 0 ? 'Ohne Mindestlaufzeit' : `${plan.months} Monate Mindestlaufzeit`}
           </div>
 
           {/* Setup */}
@@ -191,24 +199,45 @@ function PlanCard({ plan, delay, flipped, active }) {
           </div>
 
           {/* Total */}
-          <div style={{
-            padding: '0.6rem 1rem',
-            background: 'rgba(201,168,76,0.07)',
-            border: '1px solid rgba(201,168,76,0.18)',
-            borderRadius: '10px',
-            marginBottom: '1.5rem',
-          }}>
-            <div style={{ fontSize: '0.65rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.15rem' }}>
-              Gesamt ({plan.months} Monate)
-            </div>
+          {plan.total ? (
             <div style={{
-              fontFamily: 'Playfair Display, serif',
-              fontSize: '1.4rem', fontWeight: 900,
-              color: '#f5f5f5',
+              padding: '0.6rem 1rem',
+              background: 'rgba(201,168,76,0.07)',
+              border: '1px solid rgba(201,168,76,0.18)',
+              borderRadius: '10px',
+              marginBottom: '1.5rem',
             }}>
-              {fmt(plan.total)}€
+              <div style={{ fontSize: '0.65rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.15rem' }}>
+                Gesamt ({plan.months} Monate)
+              </div>
+              <div style={{
+                fontFamily: 'Playfair Display, serif',
+                fontSize: '1.4rem', fontWeight: 900,
+                color: '#f5f5f5',
+              }}>
+                {fmt(plan.total)}€
+              </div>
             </div>
-          </div>
+          ) : (
+            <div style={{
+              padding: '0.6rem 1rem',
+              background: 'rgba(201,168,76,0.07)',
+              border: '1px solid rgba(201,168,76,0.18)',
+              borderRadius: '10px',
+              marginBottom: '1.5rem',
+            }}>
+              <div style={{ fontSize: '0.65rem', color: 'rgba(245,245,245,0.35)', fontFamily: 'Inter, sans-serif', marginBottom: '0.15rem' }}>
+                Laufzeit
+              </div>
+              <div style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '1rem', fontWeight: 700,
+                color: '#f5f5f5',
+              }}>
+                Monatlich kündbar
+              </div>
+            </div>
+          )}
 
           <div style={{ width: '30px', height: '1px', background: 'rgba(201,168,76,0.2)', margin: '0 auto 1.5rem' }} />
 
