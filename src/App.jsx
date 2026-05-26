@@ -39,7 +39,7 @@ export default function App() {
         <CTA />
       </main>
       <div style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 9999 }}>
-        <elevenlabs-convai agent-id="agent_5101ksjdr0xgf50a587wvrd2cnrg" text-only="true" />
+        <elevenlabs-convai agent-id="agent_5101ksjdr0xgf50a587wvrd2cnrg" />
       </div>
     </>
     </LanguageProvider>
