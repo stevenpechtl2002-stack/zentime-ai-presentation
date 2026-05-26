@@ -12,7 +12,6 @@ import Benefits from './components/Benefits'
 import Compare from './components/Compare'
 import Industries from './components/Industries'
 import Pricing from './components/Pricing'
-import Testimonials from './components/Testimonials'
 import CallFlow from './components/CallFlow'
 import Opinion from './components/Opinion'
 import Demo from './components/Demo'
@@ -39,7 +38,6 @@ export default function App() {
         <Pricing calcResults={calcResults} />
         <Opinion />
         <CallFlow />
-        <Testimonials />
         <CTA />
       </main>
       <div style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 9999 }}>
