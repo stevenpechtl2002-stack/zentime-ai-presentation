@@ -17,6 +17,7 @@ import Demo from './components/Demo'
 import CTA from './components/CTA'
 import PersonalizationForm from './components/PersonalizationForm'
 import FormModal from './components/FormModal'
+import TechFAQ from './components/TechFAQ'
 
 export default function App() {
   const [calcResults, setCalcResults] = useState(null)
@@ -40,6 +41,7 @@ export default function App() {
         <Pricing calcResults={calcResults} />
         <CallFlow onOpenForm={() => setShowFormModal(true)} />
         <PersonalizationForm />
+        <TechFAQ />
         <CTA />
       </main>
       {showFormModal && <FormModal onClose={() => setShowFormModal(false)} />}

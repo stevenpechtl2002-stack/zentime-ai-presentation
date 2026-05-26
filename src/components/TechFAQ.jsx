@@ -1,0 +1,204 @@
+import { useState, useRef, useEffect } from 'react'
+import { useLang } from '../LanguageContext'
+
+const FAQ_DE = [
+  {
+    q: 'Welche Technologie steckt dahinter?',
+    a: 'ElevenLabs für die Sprachverarbeitung, n8n für die Workflow-Automatisierung, Supabase als Datenbank-Backend — alles über Lovable deployed. Vollständig EU-konform, Daten auf Servern in Deutschland.',
+  },
+  {
+    q: 'Gibt es eine API?',
+    a: 'Ja — über n8n kann ich quasi jede bestehende Software anbinden. Sag mir was du nutzt, ich prüfe die Integration direkt.',
+  },
+  {
+    q: 'Wo werden die Daten gespeichert?',
+    a: 'Ausschließlich EU — Supabase läuft auf AWS Frankfurt. Kein Drittlandtransfer außer ElevenLabs USA, dafür haben wir Standardvertragsklauseln nach Art. 46 DSGVO. AVV ist im Vertrag direkt inklusive.',
+  },
+  {
+    q: 'Was ist die Latenz beim Anruf?',
+    a: 'ElevenLabs liegt bei unter 500ms Response-Zeit. In der Praxis klingt das Gespräch flüssig — keine merkliche Pause.',
+  },
+  {
+    q: 'Was passiert bei einem Ausfall von ElevenLabs?',
+    a: 'Dann greift die Weiterleitung — der Anruf landet bei dir direkt. Ausfälle von Drittanbietern sind im SLA explizit geregelt und von der Haftung ausgeschlossen.',
+  },
+  {
+    q: 'Kann ich den Gesprächsablauf selbst anpassen?',
+    a: 'Ja, über das Dashboard. Begrüßungstext, Routing-Regeln, Antworten — alles konfigurierbar. Für tiefere Anpassungen über n8n-Workflows bin ich direkt ansprechbar.',
+  },
+  {
+    q: 'Wie skaliert das bei hohem Anrufvolumen?',
+    a: 'ElevenLabs und Supabase skalieren automatisch. Parallele Anrufe sind kein Problem — kein manuelles Capacity Planning nötig.',
+  },
+  {
+    q: 'Werden Gespräche aufgezeichnet und wer hat Zugriff?',
+    a: 'Transkriptionen ja, Rohaufnahmen nein — ElevenLabs speichert keine dauerhaften Audiodateien. Transkriptionen liegen in deiner Supabase-Instanz, Löschung automatisch nach 90 Tagen. Nur du als Kunde hast Zugriff.',
+  },
+  {
+    q: 'Wie läuft das Onboarding technisch ab?',
+    a: 'Du gibst mir deine Anforderungen, ich richte alles ein — Rufnummer, Gesprächslogik, Kalenderanbindung. Du bekommst den fertigen Assistenten, keine technische Arbeit deinerseits.',
+  },
+  {
+    q: 'Kann ich das in meine eigene Plattform einbetten für meine Kunden?',
+    a: 'Interessante Frage — das wäre ein Reseller-Modell. Lass uns das separat besprechen, da gibt es Möglichkeiten.',
+    highlight: true,
+  },
+]
+
+const FAQ_EN = [
+  {
+    q: 'What technology is behind it?',
+    a: 'ElevenLabs for voice processing, n8n for workflow automation, Supabase as database backend — all deployed via Lovable. Fully EU-compliant, data on servers in Germany.',
+  },
+  {
+    q: 'Is there an API?',
+    a: 'Yes — via n8n I can connect virtually any existing software. Tell me what you use and I\'ll check the integration directly.',
+  },
+  {
+    q: 'Where is data stored?',
+    a: 'EU only — Supabase runs on AWS Frankfurt. No third-country transfer except ElevenLabs USA, for which we have Standard Contractual Clauses under Art. 46 GDPR. DPA is included directly in the contract.',
+  },
+  {
+    q: 'What is the call latency?',
+    a: 'ElevenLabs response time is under 500ms. In practice the conversation sounds fluid — no noticeable pause.',
+  },
+  {
+    q: 'What happens if ElevenLabs goes down?',
+    a: 'Failover kicks in — the call routes directly to you. Third-party outages are explicitly covered in the SLA and excluded from liability.',
+  },
+  {
+    q: 'Can I customize the conversation flow?',
+    a: 'Yes, via the dashboard. Greeting text, routing rules, responses — all configurable. For deeper customization via n8n workflows I\'m directly available.',
+  },
+  {
+    q: 'How does it scale at high call volume?',
+    a: 'ElevenLabs and Supabase scale automatically. Parallel calls are no problem — no manual capacity planning needed.',
+  },
+  {
+    q: 'Are conversations recorded and who has access?',
+    a: 'Transcriptions yes, raw recordings no — ElevenLabs stores no permanent audio files. Transcriptions live in your Supabase instance, auto-deleted after 90 days. Only you as the customer have access.',
+  },
+  {
+    q: 'How does technical onboarding work?',
+    a: 'You give me your requirements, I set everything up — phone number, conversation logic, calendar integration. You get the finished assistant, no technical work on your end.',
+  },
+  {
+    q: 'Can I embed this in my own platform for my customers?',
+    a: 'Great question — that would be a reseller model. Let\'s discuss that separately, there are possibilities.',
+    highlight: true,
+  },
+]
+
+function FAQItem({ item, index }) {
+  const [open, setOpen] = useState(false)
+  const contentRef = useRef(null)
+  const [height, setHeight] = useState(0)
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setHeight(open ? contentRef.current.scrollHeight : 0)
+    }
+  }, [open])
+
+  return (
+    <div style={{
+      border: `1px solid ${item.highlight
+        ? 'rgba(201,168,76,0.3)'
+        : 'rgba(201,168,76,0.1)'}`,
+      borderRadius: '14px',
+      background: item.highlight
+        ? 'rgba(201,168,76,0.05)'
+        : 'rgba(255,255,255,0.02)',
+      overflow: 'hidden',
+      transition: 'border-color 0.2s',
+    }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          width: '100%', display: 'flex', justifyContent: 'space-between',
+          alignItems: 'center', padding: '1.25rem 1.5rem',
+          background: 'none', border: 'none', cursor: 'pointer',
+          textAlign: 'left', gap: '1rem',
+        }}
+      >
+        <span style={{
+          fontFamily: 'Inter, sans-serif',
+          fontSize: '0.92rem', fontWeight: 600,
+          color: item.highlight ? '#c9a84c' : '#f5f5f5',
+          lineHeight: 1.4,
+        }}>
+          {item.highlight && '⭐ '}{item.q}
+        </span>
+        <span style={{
+          color: 'rgba(201,168,76,0.6)', fontSize: '1.1rem',
+          flexShrink: 0, transition: 'transform 0.3s ease',
+          transform: open ? 'rotate(45deg)' : 'rotate(0deg)',
+          display: 'inline-block',
+        }}>
+          +
+        </span>
+      </button>
+
+      <div style={{
+        height: `${height}px`,
+        overflow: 'hidden',
+        transition: 'height 0.3s ease',
+      }}>
+        <div ref={contentRef} style={{
+          padding: '0 1.5rem 1.25rem',
+          fontFamily: 'Inter, sans-serif', fontSize: '0.87rem',
+          color: 'rgba(245,245,245,0.6)', lineHeight: 1.7,
+        }}>
+          {item.a}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function TechFAQ() {
+  const { lang } = useLang()
+  const isDE = lang === 'de'
+  const items = isDE ? FAQ_DE : FAQ_EN
+
+  return (
+    <section
+      id="faq"
+      className="flex flex-col items-center justify-center px-8 py-24"
+      style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #080808 100%)' }}
+    >
+      <div className="max-w-3xl w-full">
+        <div style={{
+          fontSize: '0.72rem', letterSpacing: '0.4em',
+          color: 'rgba(201,168,76,0.55)', textTransform: 'uppercase',
+          fontFamily: 'Inter, sans-serif', marginBottom: '0.5rem', textAlign: 'center',
+        }}>
+          {isDE ? 'Technische Details' : 'Technical Details'}
+        </div>
+        <h2 style={{
+          fontFamily: 'Playfair Display, serif',
+          fontSize: 'clamp(2rem, 4vw, 3rem)',
+          fontWeight: 800, color: '#f5f5f5',
+          textAlign: 'center', marginBottom: '0.75rem',
+        }}>
+          {isDE ? 'Häufige Fragen' : 'Frequently Asked Questions'}
+        </h2>
+        <p style={{
+          textAlign: 'center', fontFamily: 'Inter, sans-serif',
+          fontSize: '0.9rem', color: 'rgba(245,245,245,0.35)',
+          marginBottom: '3rem',
+        }}>
+          {isDE
+            ? 'Für alle die genau wissen wollen wie es funktioniert.'
+            : 'For everyone who wants to know exactly how it works.'}
+        </p>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          {items.map((item, i) => (
+            <FAQItem key={i} item={item} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
