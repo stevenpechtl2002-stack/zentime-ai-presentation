@@ -145,8 +145,10 @@ export const t = {
         pathA: [
           { icon: '🤔', label: 'Bedenkzeit?', desc: 'Kein Problem — wir vereinbaren einen 2. Call' },
           { icon: '📅', label: '2. Call', desc: 'Offene Fragen klären, dann gemeinsam entscheiden' },
+          { icon: '🧪', label: 'Testzeit', desc: 'Testen Sie ZenTime AI risikofrei vor dem Start' },
         ],
         pathB: [
+          { icon: '📝', label: 'Vertrag', desc: 'Einfacher Servicevertrag digital unterzeichnen' },
           { icon: '💳', label: 'Zahlung', desc: 'Einmalzahlung Setup-Fee' },
           { icon: '📋', label: 'Infos zum Personalisieren', desc: 'Name, Stimme, Sprache, Branchenspezifik, typische Anfragen' },
           { icon: '⚙️', label: 'Personalisierung startet', desc: 'Wir richten Ihren KI Assistenten ein' },
@@ -307,8 +309,10 @@ export const t = {
         pathA: [
           { icon: '🤔', label: 'Need time?', desc: 'No problem — we schedule a 2nd call' },
           { icon: '📅', label: '2nd Call', desc: 'Answer open questions, then decide together' },
+          { icon: '🧪', label: 'Trial period', desc: 'Test ZenTime AI risk-free before going live' },
         ],
         pathB: [
+          { icon: '📝', label: 'Contract', desc: 'Sign a simple service agreement digitally' },
           { icon: '💳', label: 'Payment', desc: 'One-time setup fee' },
           { icon: '📋', label: 'Personalization Info', desc: 'Name, voice, language, industry specifics, typical requests' },
           { icon: '⚙️', label: 'Personalization starts', desc: 'We set up your AI assistant' },
