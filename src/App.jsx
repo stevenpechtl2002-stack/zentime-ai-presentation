@@ -15,6 +15,7 @@ import Pricing from './components/Pricing'
 import CallFlow from './components/CallFlow'
 import Demo from './components/Demo'
 import CTA from './components/CTA'
+import PersonalizationForm from './components/PersonalizationForm'
 
 export default function App() {
   const [calcResults, setCalcResults] = useState(null)
@@ -36,6 +37,7 @@ export default function App() {
         <Demo />
         <Pricing calcResults={calcResults} />
         <CallFlow />
+        <PersonalizationForm />
         <CTA />
       </main>
       <div style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 9999 }}>
