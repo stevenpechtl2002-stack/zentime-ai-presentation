@@ -32,11 +32,11 @@ export default function App() {
         <Hero />
         <Problem onCalcUpdate={setCalcResults} />
         <Solution />
-        <HowItWorks />
         <Benefits />
+        <HowItWorks />
+        <Demo />
         <Compare />
         <Industries />
-        <Demo />
         <Pricing calcResults={calcResults} />
         <CallFlow onOpenForm={() => setShowFormModal(true)} />
         <PersonalizationForm />
