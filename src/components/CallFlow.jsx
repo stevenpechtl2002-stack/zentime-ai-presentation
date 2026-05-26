@@ -162,7 +162,7 @@ export default function CallFlow() {
 
           {/* Path A — small, muted */}
           <div style={{
-            flex: '0 1 280px',
+            flex: '0 1 320px',
             padding: '1.75rem',
             background: 'rgba(229,62,62,0.02)',
             border: '1px solid rgba(229,62,62,0.08)',
