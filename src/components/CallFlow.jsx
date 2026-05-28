@@ -56,7 +56,7 @@ function Arrow({ visible, index, color = 'rgba(201,168,76,0.35)' }) {
   )
 }
 
-export default function CallFlow({ onOpenForm }) {
+export default function CallFlow() {
   const sectionRef = useRef(null)
   const [visible, setVisible] = useState(false)
   const { lang } = useLang()
@@ -237,33 +237,6 @@ export default function CallFlow({ onOpenForm }) {
             </div>
 
             {/* CTA Button */}
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
-              <button
-                onClick={onOpenForm}
-                style={{
-                  padding: '0.9rem 2.5rem',
-                  background: 'linear-gradient(135deg, #c9a84c, #e4c46e)',
-                  border: 'none', borderRadius: '999px',
-                  fontFamily: 'Playfair Display, serif',
-                  fontSize: '1.05rem', fontWeight: 700,
-                  color: '#080808', cursor: 'pointer',
-                  animation: 'greenPulse 2.5s ease-in-out infinite',
-                  transition: 'transform 0.2s ease',
-                  opacity: visible ? 1 : 0,
-                  transition: 'opacity 0.6s ease 1s, transform 0.2s ease',
-                }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-              >
-                {isDE ? 'Jetzt starten →' : 'Get started now →'}
-              </button>
-              <span style={{
-                fontFamily: 'Inter, sans-serif', fontSize: '0.7rem',
-                color: 'rgba(245,245,245,0.25)', letterSpacing: '0.1em',
-              }}>
-                {isDE ? 'In 24 Stunden live · jederzeit kündbar' : 'Live in 24 hours · cancel anytime'}
-              </span>
-            </div>
           </div>
 
         </div>

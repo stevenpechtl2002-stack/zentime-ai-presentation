@@ -15,13 +15,10 @@ import Pricing from './components/Pricing'
 import CallFlow from './components/CallFlow'
 import Demo from './components/Demo'
 import CTA from './components/CTA'
-import PersonalizationForm from './components/PersonalizationForm'
-import FormModal from './components/FormModal'
 import TechFAQ from './components/TechFAQ'
 
 export default function App() {
   const [calcResults, setCalcResults] = useState(null)
-  const [showFormModal, setShowFormModal] = useState(false)
 
   return (
     <LanguageProvider>
@@ -39,12 +36,10 @@ export default function App() {
         <Compare />
         <Industries />
         <Pricing calcResults={calcResults} />
-        <CallFlow onOpenForm={() => setShowFormModal(true)} />
-        <PersonalizationForm />
+        <CallFlow />
         <TechFAQ />
         <CTA />
       </main>
-      {showFormModal && <FormModal onClose={() => setShowFormModal(false)} />}
       <div style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 9999 }}>
         <elevenlabs-convai agent-id="agent_8901ksm4r68qfberez8atwqm0867" />
       </div>
