@@ -4,7 +4,7 @@ import { useLang } from '../LanguageContext'
 const FAQ_DE = [
   {
     q: 'Welche Technologie steckt dahinter?',
-    a: 'TTS-System für die Sprachverarbeitung, n8n für die Workflow-Automatisierung, Supabase als Datenbank-Backend — alles über Lovable deployed. Vollständig EU-konform, Daten auf Servern in Deutschland.',
+    a: 'TTS-System für die Sprachverarbeitung, n8n für die Workflow-Automatisierung, Supabase als Datenbank-Backend — deployment über eigene Infrastruktur. Vollständig EU-konform, Daten auf Servern in Deutschland.',
   },
   {
     q: 'Gibt es eine API?',
@@ -48,7 +48,7 @@ const FAQ_DE = [
 const FAQ_EN = [
   {
     q: 'What technology is behind it?',
-    a: 'TTS-System for voice processing, n8n for workflow automation, Supabase as database backend — all deployed via Lovable. Fully EU-compliant, data on servers in Germany.',
+    a: 'TTS-System for voice processing, n8n for workflow automation, Supabase as database backend — deployed on own infrastructure. Fully EU-compliant, data on servers in Germany.',
   },
   {
     q: 'Is there an API?',

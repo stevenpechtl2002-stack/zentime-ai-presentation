@@ -62,7 +62,7 @@ bearbeitet und Anrufer weiterleitet.
      - Automatische Buchungsannahme und -bestätigung per Telefon
      - Weiterleitung von Anrufen nach konfigurierten Regeln (n8n-Workflow)
      - Gesprächsprotokoll und Transkription
-     - Echtzeit-Synchronisation mit der Buchungsplattform (Supabase via Lovable)
+     - Echtzeit-Synchronisation mit der Buchungsplattform (Supabase)
      - Anpassbare Begrüßungstexte und Gesprächsführung
 
 (2) Der Leistungsumfang richtet sich nach Tarif ${plan} (§ 3).
@@ -140,7 +140,7 @@ bearbeitet und Anrufer weiterleitet.
     - Ereignisse höherer Gewalt (Naturkatastrophen, Krieg, Pandemie,
       staatliche Eingriffe)
     - Ausfälle von Drittanbietern außerhalb des Einflussbereichs des Anbieters
-      (insbesondere TTS-System, Lovable, n8n, Vercel)
+      (insbesondere TTS-System, n8n, Vercel)
     - Technische Störungen der allgemeinen Internetinfrastruktur
 
 (3) Kritische Störungen werden innerhalb von 2 Werktagen bearbeitet.
@@ -183,7 +183,7 @@ bearbeitet und Anrufer weiterleitet.
 (2) Der Kunde ist Verantwortlicher im Sinne der DSGVO.
 (3) Gesprächsdaten: Weder Rohaufnahmen noch Transkriptionen werden dauerhaft
     gespeichert. Das TTS-System verarbeitet Sprache ausschließlich in Echtzeit.
-    Serverstandort: EU (Lovable/Supabase Frankfurt).
+    Serverstandort: EU (Supabase Frankfurt).
     Datenexport bei Vertragsende auf Anfrage innerhalb von 30 Tagen.
 
 --------------------------------------------------------------------------------
@@ -248,7 +248,7 @@ AUFTRAGSVERARBEITER:
   Adresse:     Drosselweg 11, 75175 Pforzheim
   E-Mail:      steven.pechtl@zentime.io
   USt-IdNr.:   DE364872078-00001
-  Tech-Stack:  TTS-System · n8n · Lovable (inkl. Supabase) · Vercel
+  Tech-Stack:  TTS-System · n8n · Supabase · Vercel
 
 VERANTWORTLICHER (KUNDE):
   Firma/Name:  ${d(form.company)}
@@ -266,26 +266,25 @@ gemäß Art. 28 DSGVO.
 Zentime betreibt seinen Dienst auf Basis von:
   - TTS-System (Sprachverarbeitung)
   - n8n GmbH (Workflow-Automatisierung, Deutschland)
-  - Lovable Technologies (Frontend + Supabase-Datenbankinfrastruktur, EU)
+
   - Vercel Inc. (Landing Page Hosting, USA)
 
-Supabase läuft vollständig über die Lovable-Infrastruktur — Lovable ist der
-direkte Vertragspartner. Bei Widersprüchen hat der AVV Vorrang vor dem
-Hauptvertrag in datenschutzrechtlichen Belangen.
+Bei Widersprüchen hat der AVV Vorrang vor dem Hauptvertrag in
+datenschutzrechtlichen Belangen.
 
 --------------------------------------------------------------------------------
 Art. 1  Gegenstand, Art und Zweck der Verarbeitung
 --------------------------------------------------------------------------------
 (1) Technischer Ablauf:
     Anrufe -> TTS-System (Sprachverarbeitung) -> n8n (Workflow-Routing)
-    -> Supabase via Lovable (Datenspeicherung) -> Lovable (Web-App)
+    -> Supabase (Datenspeicherung)
 
 (2) Verarbeitete Datenkategorien:
     - Anrufer-Daten: Telefonnummern, Echtzeit-Sprachverarbeitung
       (TTS-System), Gesprächstranskriptionen
-    - Buchungsdaten: Namen, Termine, Kontaktdaten (Supabase via Lovable)
+    - Buchungsdaten: Namen, Termine, Kontaktdaten (Supabase)
     - Workflow-Daten: Prozessdaten für Routing (n8n), nicht dauerhaft gespeichert
-    - Account-Daten: Login-Daten, Konfigurationen (Supabase Auth via Lovable)
+    - Account-Daten: Login-Daten, Konfigurationen (Supabase Auth)
 
 (3) Zweck: Automatisierte Anrufannahme, Buchungserfassung, Workflow-
     Steuerung, Bereitstellung Buchungsplattform.
@@ -319,7 +318,7 @@ Art. 4  Unterauftragsverarbeiter – Zentime Tech-Stack
   TTS-System | KI-Sprachsynthese & Erkennung – Echtzeit,
     keine dauerhafte Speicherung | USA / SCCs gem. Art. 46 DSGVO
   n8n GmbH | Workflow-Automatisierung, Anruf-Routing | Deutschland / EU
-  Lovable Technologies | Frontend + gesamte Supabase-Infrastruktur | EU
+
   Vercel Inc. | Hosting Landing Page – nur anonyme Analytics | USA / SCCs
 
 (2) Der Anbieter hat mit sämtlichen eingesetzten Unterauftragsverarbeitern
@@ -329,7 +328,7 @@ Art. 4  Unterauftragsverarbeiter – Zentime Tech-Stack
     für TTS-System-Anbieter (USA) und Vercel Inc. (USA).
     Audiodaten werden nicht dauerhaft gespeichert.
 
-(3) Lovable (EU): Hauptvertragspartner für Backend inkl. Supabase. EU-Verarbeitung.
+(3) Supabase (EU): Datenbankinfrastruktur, EU-Verarbeitung.
 
 (4) n8n (Deutschland): Zugriff nur auf Workflow-Daten, ausschließlich EU.
 
@@ -341,7 +340,7 @@ Art. 4  Unterauftragsverarbeiter – Zentime Tech-Stack
 Art. 5  Unterstützung bei Betroffenenrechten
 --------------------------------------------------------------------------------
 Unterstützung bei: Auskunft (Art. 15), Berichtigung (Art. 16), Löschung
-(Art. 17 – via Supabase/Lovable), Einschränkung (Art. 18), Datenübertragbarkeit
+(Art. 17 – via Supabase), Einschränkung (Art. 18), Datenübertragbarkeit
 (Art. 20 – Export CSV/JSON aus Supabase).
 Anfragen werden unverzüglich weitergeleitet, nicht eigenständig beantwortet.
 Unterstützung auch bei DSFA (Art. 35) und Meldungen nach Art. 33/34 DSGVO.
@@ -358,11 +357,11 @@ Art. 6  Datenpannen und Meldepflichten
 --------------------------------------------------------------------------------
 Art. 7  Technische und organisatorische Maßnahmen (TOM) – Art. 32 DSGVO
 --------------------------------------------------------------------------------
-  Zugangskontrolle: Supabase Auth via Lovable: 2FA, RBAC
+  Zugangskontrolle: Supabase Auth: 2FA, RBAC
   Verschlüsselung: TLS 1.2+ alle Übertragungen; Supabase at-rest AES-256
-  Datentrennung (RLS): Supabase Row Level Security via Lovable
-  Eingabekontrolle: Supabase Audit Logs via Lovable
-  Verfügbarkeit: Lovable automatische Backups; n8n Fehler-Alerting; Vercel CDN
+  Datentrennung (RLS): Supabase Row Level Security
+  Eingabekontrolle: Supabase Audit Logs
+  Verfügbarkeit: Supabase automatische Backups; n8n Fehler-Alerting; Vercel CDN
   Serverstandort: Primär EU (Frankfurt); TTS-System + Vercel USA mit SCCs
 
 --------------------------------------------------------------------------------
