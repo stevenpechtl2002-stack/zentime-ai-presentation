@@ -58,7 +58,7 @@ bearbeitet und Anrufer weiterleitet.
      - Dashboard und Buchungsübersicht
 
   B) ZENTIME KI-TELEFONASSISTENT
-     - KI-gestützte Entgegennahme eingehender Anrufe (ElevenLabs Voice AI)
+     - KI-gestützte Entgegennahme eingehender Anrufe (TTS-System)
      - Automatische Buchungsannahme und -bestätigung per Telefon
      - Weiterleitung von Anrufen nach konfigurierten Regeln (n8n-Workflow)
      - Gesprächsprotokoll und Transkription
@@ -140,7 +140,7 @@ bearbeitet und Anrufer weiterleitet.
     - Ereignisse höherer Gewalt (Naturkatastrophen, Krieg, Pandemie,
       staatliche Eingriffe)
     - Ausfälle von Drittanbietern außerhalb des Einflussbereichs des Anbieters
-      (insbesondere ElevenLabs, Lovable, n8n, Vercel)
+      (insbesondere TTS-System, Lovable, n8n, Vercel)
     - Technische Störungen der allgemeinen Internetinfrastruktur
 
 (3) Kritische Störungen werden innerhalb von 2 Werktagen bearbeitet.
@@ -182,7 +182,7 @@ bearbeitet und Anrufer weiterleitet.
     gemäß Art. 28 DSGVO. Details sind in Teil 2 (AVV) geregelt.
 (2) Der Kunde ist Verantwortlicher im Sinne der DSGVO.
 (3) Gesprächsdaten: Weder Rohaufnahmen noch Transkriptionen werden dauerhaft
-    gespeichert. ElevenLabs verarbeitet Sprache ausschließlich in Echtzeit.
+    gespeichert. Das TTS-System verarbeitet Sprache ausschließlich in Echtzeit.
     Serverstandort: EU (Lovable/Supabase Frankfurt).
     Datenexport bei Vertragsende auf Anfrage innerhalb von 30 Tagen.
 
@@ -248,7 +248,7 @@ AUFTRAGSVERARBEITER:
   Adresse:     Drosselweg 11, 75175 Pforzheim
   E-Mail:      steven.pechtl@zentime.io
   USt-IdNr.:   DE364872078-00001
-  Tech-Stack:  ElevenLabs Scale · n8n · Lovable (inkl. Supabase) · Vercel
+  Tech-Stack:  TTS-System · n8n · Lovable (inkl. Supabase) · Vercel
 
 VERANTWORTLICHER (KUNDE):
   Firma/Name:  ${d(form.company)}
@@ -264,7 +264,7 @@ die Verarbeitung personenbezogener Daten durch Zentime als Auftragsverarbeiter
 gemäß Art. 28 DSGVO.
 
 Zentime betreibt seinen Dienst auf Basis von:
-  - ElevenLabs Scale (KI-Sprachverarbeitung, USA)
+  - TTS-System (Sprachverarbeitung)
   - n8n GmbH (Workflow-Automatisierung, Deutschland)
   - Lovable Technologies (Frontend + Supabase-Datenbankinfrastruktur, EU)
   - Vercel Inc. (Landing Page Hosting, USA)
@@ -277,12 +277,12 @@ Hauptvertrag in datenschutzrechtlichen Belangen.
 Art. 1  Gegenstand, Art und Zweck der Verarbeitung
 --------------------------------------------------------------------------------
 (1) Technischer Ablauf:
-    Anrufe -> ElevenLabs Scale (Sprachverarbeitung) -> n8n (Workflow-Routing)
+    Anrufe -> TTS-System (Sprachverarbeitung) -> n8n (Workflow-Routing)
     -> Supabase via Lovable (Datenspeicherung) -> Lovable (Web-App)
 
 (2) Verarbeitete Datenkategorien:
     - Anrufer-Daten: Telefonnummern, Echtzeit-Sprachverarbeitung
-      (ElevenLabs Scale), Gesprächstranskriptionen
+      (TTS-System), Gesprächstranskriptionen
     - Buchungsdaten: Namen, Termine, Kontaktdaten (Supabase via Lovable)
     - Workflow-Daten: Prozessdaten für Routing (n8n), nicht dauerhaft gespeichert
     - Account-Daten: Login-Daten, Konfigurationen (Supabase Auth via Lovable)
@@ -316,7 +316,7 @@ Art. 4  Unterauftragsverarbeiter – Zentime Tech-Stack
 --------------------------------------------------------------------------------
 (1) Genehmigte Unterauftragsverarbeiter:
 
-  ElevenLabs Inc. (Scale-Plan) | KI-Sprachsynthese & Erkennung – Echtzeit,
+  TTS-System | KI-Sprachsynthese & Erkennung – Echtzeit,
     keine dauerhafte Speicherung | USA / SCCs gem. Art. 46 DSGVO
   n8n GmbH | Workflow-Automatisierung, Anruf-Routing | Deutschland / EU
   Lovable Technologies | Frontend + gesamte Supabase-Infrastruktur | EU
@@ -326,8 +326,8 @@ Art. 4  Unterauftragsverarbeiter – Zentime Tech-Stack
     die erforderlichen Auftragsverarbeitungsverträge gemäß Art. 28 DSGVO
     sowie – sofern Drittlandübertragungen vorliegen – Standardvertragsklauseln
     gemäß Art. 46 Abs. 2 lit. c DSGVO abgeschlossen. Dies gilt insbesondere
-    für ElevenLabs Inc. (USA) und Vercel Inc. (USA).
-    ElevenLabs-Audiodaten werden nicht dauerhaft gespeichert.
+    für TTS-System-Anbieter (USA) und Vercel Inc. (USA).
+    Audiodaten werden nicht dauerhaft gespeichert.
 
 (3) Lovable (EU): Hauptvertragspartner für Backend inkl. Supabase. EU-Verarbeitung.
 
@@ -363,7 +363,7 @@ Art. 7  Technische und organisatorische Maßnahmen (TOM) – Art. 32 DSGVO
   Datentrennung (RLS): Supabase Row Level Security via Lovable
   Eingabekontrolle: Supabase Audit Logs via Lovable
   Verfügbarkeit: Lovable automatische Backups; n8n Fehler-Alerting; Vercel CDN
-  Serverstandort: Primär EU (Frankfurt); ElevenLabs + Vercel USA mit SCCs
+  Serverstandort: Primär EU (Frankfurt); TTS-System + Vercel USA mit SCCs
 
 --------------------------------------------------------------------------------
 Art. 8  Datenlösch- und Rückgabepflichten
@@ -371,7 +371,7 @@ Art. 8  Datenlösch- und Rückgabepflichten
 (1) Nach Vertragsende: Export oder Löschung der gespeicherten Daten innerhalb
     von 30 Tagen auf Anfrage.
 (2) Gesprächsdaten: Weder Rohaufnahmen noch Transkriptionen werden dauerhaft
-    gespeichert. ElevenLabs verarbeitet Sprache ausschließlich in Echtzeit,
+    gespeichert. Das TTS-System verarbeitet Sprache ausschließlich in Echtzeit,
     keine persistente Datenspeicherung.
 (3) n8n-Workflow-Logs: Löschung nach 30 Tagen.
 (4) Löschbestätigung schriftlich auf Anfrage.

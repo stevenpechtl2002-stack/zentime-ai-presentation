@@ -4,7 +4,7 @@ import { useLang } from '../LanguageContext'
 const FAQ_DE = [
   {
     q: 'Welche Technologie steckt dahinter?',
-    a: 'ElevenLabs für die Sprachverarbeitung, n8n für die Workflow-Automatisierung, Supabase als Datenbank-Backend — alles über Lovable deployed. Vollständig EU-konform, Daten auf Servern in Deutschland.',
+    a: 'TTS-System für die Sprachverarbeitung, n8n für die Workflow-Automatisierung, Supabase als Datenbank-Backend — alles über Lovable deployed. Vollständig EU-konform, Daten auf Servern in Deutschland.',
   },
   {
     q: 'Gibt es eine API?',
@@ -12,14 +12,14 @@ const FAQ_DE = [
   },
   {
     q: 'Wo werden die Daten gespeichert?',
-    a: 'Ausschließlich EU — Supabase läuft auf AWS Frankfurt. Kein Drittlandtransfer außer ElevenLabs USA, dafür haben wir Standardvertragsklauseln nach Art. 46 DSGVO. AVV ist im Vertrag direkt inklusive.',
+    a: 'Ausschließlich EU — Supabase läuft auf AWS Frankfurt. Kein Drittlandtransfer außer dem TTS-System-Anbieter (USA), dafür haben wir Standardvertragsklauseln nach Art. 46 DSGVO. AVV ist im Vertrag direkt inklusive.',
   },
   {
     q: 'Was ist die Latenz beim Anruf?',
-    a: 'ElevenLabs liegt bei unter 500ms Response-Zeit. In der Praxis klingt das Gespräch flüssig — keine merkliche Pause.',
+    a: 'Das TTS-System liegt bei unter 500ms Response-Zeit. In der Praxis klingt das Gespräch flüssig — keine merkliche Pause.',
   },
   {
-    q: 'Was passiert bei einem Ausfall von ElevenLabs?',
+    q: 'Was passiert bei einem Ausfall des TTS-Systems?',
     a: 'Dann greift die Weiterleitung — der Anruf landet bei dir direkt. Ausfälle von Drittanbietern sind im SLA explizit geregelt und von der Haftung ausgeschlossen.',
   },
   {
@@ -28,11 +28,11 @@ const FAQ_DE = [
   },
   {
     q: 'Wie skaliert das bei hohem Anrufvolumen?',
-    a: 'ElevenLabs und Supabase skalieren automatisch. Parallele Anrufe sind kein Problem — kein manuelles Capacity Planning nötig.',
+    a: 'TTS-System und Supabase skalieren automatisch. Parallele Anrufe sind kein Problem — kein manuelles Capacity Planning nötig.',
   },
   {
     q: 'Werden Gespräche aufgezeichnet und wer hat Zugriff?',
-    a: 'Nein — weder Rohaufnahmen noch Transkriptionen werden gespeichert. ElevenLabs verarbeitet die Sprache in Echtzeit und speichert keine dauerhaften Daten. Nach dem Gespräch bleibt nichts zurück.',
+    a: 'Nein — weder Rohaufnahmen noch Transkriptionen werden gespeichert. Das TTS-System verarbeitet die Sprache in Echtzeit und speichert keine dauerhaften Daten. Nach dem Gespräch bleibt nichts zurück.',
   },
   {
     q: 'Wie läuft das Onboarding technisch ab?',
@@ -48,7 +48,7 @@ const FAQ_DE = [
 const FAQ_EN = [
   {
     q: 'What technology is behind it?',
-    a: 'ElevenLabs for voice processing, n8n for workflow automation, Supabase as database backend — all deployed via Lovable. Fully EU-compliant, data on servers in Germany.',
+    a: 'TTS-System for voice processing, n8n for workflow automation, Supabase as database backend — all deployed via Lovable. Fully EU-compliant, data on servers in Germany.',
   },
   {
     q: 'Is there an API?',
@@ -56,14 +56,14 @@ const FAQ_EN = [
   },
   {
     q: 'Where is data stored?',
-    a: 'EU only — Supabase runs on AWS Frankfurt. No third-country transfer except ElevenLabs USA, for which we have Standard Contractual Clauses under Art. 46 GDPR. DPA is included directly in the contract.',
+    a: 'EU only — Supabase runs on AWS Frankfurt. No third-country transfer except the TTS-system provider (USA), for which we have Standard Contractual Clauses under Art. 46 GDPR. DPA is included directly in the contract.',
   },
   {
     q: 'What is the call latency?',
-    a: 'ElevenLabs response time is under 500ms. In practice the conversation sounds fluid — no noticeable pause.',
+    a: 'TTS-System response time is under 500ms. In practice the conversation sounds fluid — no noticeable pause.',
   },
   {
-    q: 'What happens if ElevenLabs goes down?',
+    q: 'What happens if the TTS system goes down?',
     a: 'Failover kicks in — the call routes directly to you. Third-party outages are explicitly covered in the SLA and excluded from liability.',
   },
   {
@@ -72,11 +72,11 @@ const FAQ_EN = [
   },
   {
     q: 'How does it scale at high call volume?',
-    a: 'ElevenLabs and Supabase scale automatically. Parallel calls are no problem — no manual capacity planning needed.',
+    a: 'TTS-System and Supabase scale automatically. Parallel calls are no problem — no manual capacity planning needed.',
   },
   {
     q: 'Are conversations recorded and who has access?',
-    a: 'No — neither raw recordings nor transcriptions are stored. ElevenLabs processes speech in real time and stores no permanent data. After the call, nothing is retained.',
+    a: 'No — neither raw recordings nor transcriptions are stored. The TTS system processes speech in real time and stores no permanent data. After the call, nothing is retained.',
   },
   {
     q: 'How does technical onboarding work?',
