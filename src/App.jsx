@@ -40,9 +40,6 @@ export default function App() {
         <TechFAQ />
         <CTA />
       </main>
-      <div style={{ position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 9999 }}>
-        <elevenlabs-convai agent-id="agent_8901ksm4r68qfberez8atwqm0867" />
-      </div>
     </>
     </LanguageProvider>
   )
